@@ -31,7 +31,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.place(stone, x, y)
-    Ok(controller.hexfield.toString)
+    Ok(controller.toString)
   }
 
   def notFound(page: String): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
