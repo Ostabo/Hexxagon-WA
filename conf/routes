@@ -4,16 +4,16 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET         /                          controllers.HomeController.index()
+GET        /                          controllers.HomeController.index()
 
 # Request the current status of the game
-GET         /status                    controllers.HomeController.status()
+GET        /status                    controllers.HomeController.status()
 
 # Place a stone on the field at
-POST        /place/:x/:y/:stone        controllers.HomeController.place(x: Int, y: Int, stone: Char)
+GET        /place/:x/:y/:stone        controllers.HomeController.place(x: Int, y: Int, stone: Char)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
 
 # 404 - page not found error
-GET         /*page                     controllers.HomeController.notFound(page: String)
+GET        /*page                     controllers.HomeController.notFound(page: String)

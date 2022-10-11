@@ -1,10 +1,9 @@
 package controllers
 
-import controller.controllerComponent.controllerBaseImpl.Controller
+import controller.controllerComponent.ControllerInterface
 import play.api.mvc._
 
 import javax.inject._
-import scala.HexModule.given_model_fieldComponent_FieldInterface_Char
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -13,7 +12,7 @@ import scala.HexModule.given_model_fieldComponent_FieldInterface_Char
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
-  val controller = new Controller()
+  val controller: ControllerInterface[Char] = starter.runController
 
   /**
    * Create an Action to render an HTML page.
@@ -27,7 +26,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def status(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok("Ok")
+    Ok(controller.gamestatus.toString)
   }
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -36,11 +35,6 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def notFound(page: String): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    NotFound(
-      <h1>
-        Page not found:
-        {page}
-      </h1>
-    )
+    NotFound(views.html.notFound(page))
   }
 }
