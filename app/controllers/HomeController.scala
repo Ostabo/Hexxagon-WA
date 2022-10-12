@@ -26,11 +26,45 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def status(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(controller.gamestatus.toString)
+    Ok(controller.gamestatus.message())
+  }
+
+  def overview(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(controller.toString)
   }
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    controller.place(stone, x, y)
+    controller.place(stone.toUpper, x, y)
+    Ok(controller.toString)
+  }
+
+  def fillAll(stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    controller.fillAll(stone.toUpper)
+    Ok(controller.toString)
+  }
+
+  def undo(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    controller.undo
+    Ok(controller.toString)
+  }
+
+  def redo(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    controller.redo
+    Ok(controller.toString)
+  }
+
+  def save(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    controller.save
+    Ok(controller.toString)
+  }
+
+  def load(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    controller.load
+    Ok(controller.toString)
+  }
+
+  def reset(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    controller.reset
     Ok(controller.toString)
   }
 
