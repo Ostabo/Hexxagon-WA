@@ -1,0 +1,18 @@
+@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String)
+
+@main("Game-Overview") {
+    <section class="wrapper">
+        <div class="header">
+            <h2 class="counter c1">X: @counter1</h2>
+            <h1 class="status">@status</h1>
+            <h2 class="counter c2">O: @counter2</h2>
+        </div>
+        @for(row <- matrix) {
+            <div class="row">
+            @for(cell <- row) {
+                <div class="hex">@cell</div>
+            }
+            </div>
+        }
+    </section>
+}

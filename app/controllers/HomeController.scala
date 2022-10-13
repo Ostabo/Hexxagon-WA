@@ -30,7 +30,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def overview(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(controller.toString)
+    Ok(views.html.game(controller.hexfield.matrix.matrix, controller.gamestatus.message(), controller.hexfield.matrix.Xcount.toString, controller.hexfield.matrix.Ocount.toString))
   }
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
