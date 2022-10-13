@@ -1,16 +1,32 @@
 :root {
     --color1: #cc0000;
     --color2: #0000cc;
-    --bgcolor1: #7c5f5f;
+    --bgcolor1: #af4f4f;
     --bgcolor2: #131c42;
     width: 100%;
     height: 100%;
-    background: radial-gradient(var(--bgcolor1) 0%, var(--bgcolor2) 100%);
+    background: #282828;
 }
 
 body {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     text-align: center;
+    color: white;
+}
+
+h1.welcome {
+    font-size: 4em;
+    font-weight: 100;
+    text-shadow: black 0 0 1em;
+}
+
+.links {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4em;
+    gap: 5em;
 }
 
 @keyframes fade-in {
@@ -31,13 +47,29 @@ body {
     width: 100%;
 }
 
+.back-nav {
+    position: absolute;
+    top: 1.5em;
+    left: 2em;
+    font-size: 3em;
+    text-decoration: none;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    padding: 0 .4em .2em;
+    background: #ffffff;
+    color: black;
+    text-shadow: black 0 0 1em;
+}
+
+.back-nav:hover {
+    color: lightskyblue;
+}
+
 .header {
     font-size: 2rem;
     display: flex;
     align-content: center;
     justify-content: space-between;
     text-shadow: black 0.1em 0.1em 0.2em;
-    color: white;
     min-width: 50%;
     margin-bottom: 2em;
 }
@@ -51,6 +83,8 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+
+    margin-left: 12em;
 }
 
 .hex {
@@ -63,6 +97,8 @@ body {
     font-size: calc(100px / 2);
     transition: all .1s linear;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+
+    margin-left: -4em;
 }
 
 .hex:nth-child(odd) {
@@ -71,5 +107,18 @@ body {
 
 .hex:hover {
     cursor: pointer;
-    scale: 1.2;
+    scale: 1.1;
+}
+
+.links > a {
+    color: white;
+    font-size: 2em;
+    text-underline: none;
+    text-shadow: black 0 0 1em;
+}
+
+.links > a:hover {
+    cursor: pointer;
+    color: lightskyblue;
+    scale: 1.1;
 }

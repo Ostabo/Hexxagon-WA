@@ -1,16 +1,25 @@
-@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String)
+@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Boolean)
 
 @main("Game-Overview") {
     <section class="wrapper">
+        <a href="/" class="back-nav">⇦</a>
         <div class="header">
-            <h2 class="counter c1">X: @counter1</h2>
+            <h2 class="counter c1">🔷: @counter1</h2>
             <h1 class="status">@status</h1>
-            <h2 class="counter c2">O: @counter2</h2>
+            <h2 class="counter c2">🔴: @counter2</h2>
         </div>
         @for(row <- matrix) {
             <div class="row">
             @for(cell <- row) {
-                <div class="hex">@cell</div>
+                <div class="hex">
+                @if(cell.equals('X')) {
+                    🔷
+                } else {
+                    @if(cell.equals('O')) {
+                        🔴
+                    }
+                }
+                </div>
             }
             </div>
         }

@@ -1,5 +1,6 @@
 package controllers
 
+import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
 import play.api.mvc._
 
@@ -25,12 +26,24 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.index())
   }
 
+  def about(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.about())
+  }
+
   def status(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(controller.gamestatus.message())
   }
 
   def overview(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.game(controller.hexfield.matrix.matrix, controller.gamestatus.message(), controller.hexfield.matrix.Xcount.toString, controller.hexfield.matrix.Ocount.toString))
+    Ok(
+      views.html.game(
+        controller.hexfield.matrix.matrix,
+        controller.gamestatus.message(),
+        controller.hexfield.matrix.Xcount.toString,
+        controller.hexfield.matrix.Ocount.toString,
+        controller.gamestatus.equals(GameStatus.TURNPLAYER1) || controller.gamestatus.equals(GameStatus.IDLE)
+      )
+    )
   }
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
