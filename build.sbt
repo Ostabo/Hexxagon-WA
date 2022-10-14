@@ -1,6 +1,6 @@
 ThisBuild / scalaVersion := "2.13.10"
 
-ThisBuild / version := "1.0-SNAPSHOT"
+ThisBuild / version := "1.0"
 
 scalacOptions += "-Ytasty-reader"
 

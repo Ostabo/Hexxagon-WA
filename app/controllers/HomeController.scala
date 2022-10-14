@@ -26,9 +26,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.index())
   }
 
-  def about(): Action[AnyContent] = TODO /*Action { implicit request: Request[AnyContent] =>
+  def about(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.about())
-  }*/
+  }
 
   def status(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(controller.gamestatus.message())

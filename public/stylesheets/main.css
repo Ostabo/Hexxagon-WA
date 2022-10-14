@@ -47,6 +47,17 @@ h1.welcome {
     width: 100%;
 }
 
+.about {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 35%;
+}
+
 .back-nav {
     position: absolute;
     top: 1.5em;
