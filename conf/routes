@@ -18,6 +18,7 @@ GET         /overview-plain            controllers.HomeController.overviewPlain(
 GET         /about                     controllers.HomeController.about()
 
 # Place a stone on the field at the given coordinates - Game Commands
++nocsrf
 POST        /place/:x/:y/:stone        controllers.HomeController.place(x: Int, y: Int, stone: Char)
 POST        /fill/:stone               controllers.HomeController.fillAll(stone: Char)
 POST        /reset                     controllers.HomeController.reset()

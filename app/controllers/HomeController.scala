@@ -41,7 +41,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
         controller.gamestatus.message(),
         controller.hexfield.matrix.Xcount.toString,
         controller.hexfield.matrix.Ocount.toString,
-        controller.gamestatus.equals(GameStatus.TURNPLAYER1) || controller.gamestatus.equals(GameStatus.IDLE)
+        if (controller.gamestatus.equals(GameStatus.TURNPLAYER1) || controller.gamestatus.equals(GameStatus.IDLE))
+          0
+        else
+          1
       )
     )
   }

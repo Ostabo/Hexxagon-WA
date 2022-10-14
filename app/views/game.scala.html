@@ -1,4 +1,4 @@
-@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Boolean)
+@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Int)
 
 @main("Game-Overview") {
     <section class="wrapper">
@@ -8,14 +8,14 @@
             <h1 class="status">@status</h1>
             <h2 class="counter c2">🔴: @counter2</h2>
         </div>
-        @for(row <- matrix) {
+        @for(rowIndex <- matrix.indices by +1) {
             <div class="row">
-            @for(cell <- row) {
-                <div class="hex">
-                @if(cell.equals('X')) {
+            @for(cellIndex <- matrix(rowIndex).indices.reverse by -1) {
+                <div class="hex" onclick="clickTile(this, @turn)" id="@cellIndex,@rowIndex">
+                @if(matrix(rowIndex)(cellIndex).equals('X')) {
                     🔷
                 } else {
-                    @if(cell.equals('O')) {
+                    @if(matrix(rowIndex)(cellIndex).equals('O')) {
                         🔴
                     }
                 }
