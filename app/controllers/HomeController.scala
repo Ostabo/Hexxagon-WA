@@ -26,9 +26,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.index())
   }
 
-  def about(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+  def about(): Action[AnyContent] = TODO /*Action { implicit request: Request[AnyContent] =>
     Ok(views.html.about())
-  }
+  }*/
 
   def status(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(controller.gamestatus.message())
@@ -44,6 +44,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
         controller.gamestatus.equals(GameStatus.TURNPLAYER1) || controller.gamestatus.equals(GameStatus.IDLE)
       )
     )
+  }
+
+  def overviewPlain(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.gamePlain(controller.toString))
   }
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>

@@ -11,6 +11,8 @@ GET         /status                    controllers.HomeController.status()
 
 # Game overview
 GET         /overview                  controllers.HomeController.overview()
+# Game overview in simpler html/text style
+GET         /overview-plain            controllers.HomeController.overviewPlain()
 
 # About page
 GET         /about                     controllers.HomeController.about()
