@@ -4,34 +4,44 @@
     <section class="about">
         <a href="/" class="back-nav">⇦</a>
 
-        <p>
+        <h1 class="about-heading">
             ██╗░░██╗███████╗██╗░░██╗██╗░░██╗░█████╗░░██████╗░░█████╗░███╗░░██╗<br>
             ██║░░██║██╔════╝╚██╗██╔╝╚██╗██╔╝██╔══██╗██╔════╝░██╔══██╗████╗░██║<br>
             ███████║█████╗░░░╚███╔╝░░╚███╔╝░███████║██║░░██╗░██║░░██║██╔██╗██║<br>
             ██╔══██║██╔══╝░░░██╔██╗░░██╔██╗░██╔══██║██║░░╚██╗██║░░██║██║╚████║<br>
             ██║░░██║███████╗██╔╝╚██╗██╔╝╚██╗██║░░██║╚██████╔╝╚█████╔╝██║░╚███║<br>
             ╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░░╚════╝░╚═╝░░╚══╝
-        </p>
+        </h1>
 
-        <h1>About</h1>
-        <p>This project is developed using the Scala Play Framework as an example for the lecture Web Applications
-            at the HTWG Konstanz.</p>
+        <table>
+            <tr>
+                <th class="table-heading">About</th>
+                <th class="table-heading">The Game</th>
+            </tr>
 
-        <h1>The Game</h1>
-        <p>
-            Hexxagon is a strategy board game played in a two player mode. The board consists of several hexagonal
-            tiles that are arranged in another hexagonal grid.
-        <br><br>
-            The two players take turns at placing their stones on one of the tiles.
-            After occupying one tile, all the stones in adjacent fields will convert to the same that was just placed.
-        <br><br>
-            The goal of the game is to capture as many fields as possible.
-            The player with most stones on the board wins.
-        </p>
+            <tr class="table-content">
+                <td>This project is developed using the Scala Play Framework as an example for the lecture Web Applications
+                    at the HTWG Konstanz.</td>
 
-        <img alt="" src=@routes.Assets.versioned("images/game.gif")>
+                <td>
+                    Hexxagon is a strategy board game played in a two player mode. The board consists of several hexagonal
+                    tiles that are arranged in another hexagonal grid.
+                    <br><br>
+                    The two players take turns at placing their stones on one of the tiles.
+                    After occupying one tile, all the stones in adjacent fields will convert to the same that was just placed.
+                    <br><br>
+                    The goal of the game is to capture as many fields as possible.
+                    The player with most stones on the board wins.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <img alt="" src=@routes.Assets.versioned("images/game.gif")>
+                </td>
+            </tr>
+        </table>
 
-        <footer>
+        <footer class="footer">
             <a href=https://github.com/Ostabo/Hexxagon-WA>
                 <img alt="" src="@routes.Assets.versioned("images/GitHub_Logo_White.png")"
                 height="20">

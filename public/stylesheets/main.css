@@ -149,3 +149,33 @@ h1.welcome {
     position: absolute;
     left: 30%;
 }
+
+.about-heading {
+    font-size: 1em;
+}
+
+.table-heading {
+    font-size: 2.5em;
+    text-align: center;
+    padding: .5em;
+}
+
+table {
+    min-width: 1000px;
+}
+
+.table-content td {
+    text-align: left;
+    padding: 1em;
+    vertical-align: top;
+    border: 1px solid white;
+    border-radius: 1em;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid white;
+    padding: 1em;
+}
