@@ -31,7 +31,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def status(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(controller.gamestatus.message())
+    Ok(views.html.gamePlain(controller.gamestatus.message()))
   }
 
   def overview(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
