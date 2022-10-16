@@ -1,11 +1,11 @@
 @(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Int)
 
 @main("Game-Overview") {
-    <section class="wrapper">
+    <main class="wrapper">
         @navBack()
         <div class="header">
             <h2 class="counter c1">🔷: @counter1</h2>
-            <h1 class="status">@status</h1>
+            <h2 class="status">@status</h2>
             <h2 class="counter c2">🔴: @counter2</h2>
         </div>
         @for(rowIndex <- matrix.indices by +1) {
@@ -23,5 +23,5 @@
             }
             </div>
         }
-    </section>
+    </main>
 }

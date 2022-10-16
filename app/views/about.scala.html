@@ -1,7 +1,7 @@
 @()
 
 @main("About Hexxagon") {
-    <section class="about">
+    <main class="about">
         @navBack()
 
         <h1 class="about-heading">
@@ -15,14 +15,11 @@
 
         <table>
             <tr>
-                <th class="table-heading">About</th>
                 <th class="table-heading">The Game</th>
+                <th class="table-heading">About</th>
             </tr>
 
             <tr class="table-content">
-                <td>This project is developed using the Scala Play Framework as an example for the lecture Web Applications
-                    at the HTWG Konstanz.</td>
-
                 <td>
                     Hexxagon is a strategy board game played in a two player mode. The board consists of several hexagonal
                     tiles that are arranged in another hexagonal grid.
@@ -33,6 +30,8 @@
                     The goal of the game is to capture as many fields as possible.
                     The player with most stones on the board wins.
                 </td>
+                <td>This project is developed using the Scala Play Framework as an example for the lecture Web Applications
+                    at the HTWG Konstanz.</td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -40,12 +39,5 @@
                 </td>
             </tr>
         </table>
-
-        <footer class="footer">
-            <a href=https://github.com/Ostabo/Hexxagon-WA>
-                <img alt="" src="@routes.Assets.versioned("images/GitHub_Logo_White.png")"
-                height="20">
-            </a>
-        </footer>
-    </section>
+    </main>
 }
