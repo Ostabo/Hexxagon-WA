@@ -5,40 +5,40 @@
   justify-content: center;
   height: 90%;
   width: 100%;
-}
 
-.status {
-  padding: 0 2.5em;
-}
+  .status {
+    padding: 0 2.5em;
+  }
 
-.row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 
-  margin-left: 12em;
-}
+    margin-left: 12em;
 
-.hex {
-  width: 110px;
-  height: 100px;
-  background: white;
-  text-shadow: black 0 2px 2px;
-  text-align: center;
-  line-height: 100px;
-  font-size: calc(100px / 2);
-  transition: all .1s linear;
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    .hex {
+      width: 110px;
+      height: 100px;
+      background: white;
+      text-shadow: black 0 2px 2px;
+      text-align: center;
+      line-height: 100px;
+      font-size: calc(100px / 2);
+      transition: all .1s linear;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
 
-  margin-left: -4em;
-}
+      margin-left: -4em;
 
-.hex:nth-child(odd) {
-  margin-top: calc(100px * -1 - 100px / 10) !important;
-}
+      &:nth-child(odd) {
+        margin-top: calc(100px * -1 - 100px / 10) !important;
+      }
 
-.hex:hover {
-  cursor: pointer;
-  scale: 1.1;
+      &:hover {
+        cursor: pointer;
+        scale: 1.1;
+      }
+    }
+  }
 }

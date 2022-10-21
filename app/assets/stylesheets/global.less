@@ -1,7 +1,5 @@
 @player1: rgba(204, 0, 0, 1);
 @player2: rgba(0, 0, 204, 1);
-@persianred: rgba(175, 79, 79, 1);
-@royalblue: rgba(19, 28, 66, 1);
 @background: rgba(40, 40, 40, 1);
 @color1: black;
 @color2: white;
@@ -17,21 +15,75 @@
   }
 }
 
-body {
+body.main-body {
   background: @background;
   font-family: @font;
   text-align: center;
   color: @color2;
-}
 
-.header {
-  font-size: 2rem;
-  display: flex;
-  align-content: center;
-  justify-content: space-between;
-  text-shadow: black 0.1em 0.1em 0.2em;
-  min-width: 50%;
-  margin-bottom: 2em;
+  h1.welcome {
+    font-size: 4em;
+    font-weight: 100;
+    text-shadow: black 0 0 1em;
+  }
+
+  .header {
+    font-size: 2rem;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    text-shadow: black 0.1em 0.1em 0.2em;
+    min-width: 50%;
+    margin-bottom: 2em;
+  }
+
+  .text-area {
+    display: block;
+    width: 60%;
+    height: 90%;
+    background: #282828;
+    color: white;
+    font-size: 2.5em;
+    text-align: left;
+    padding: 1em;
+    border: none;
+    resize: none;
+    outline: none;
+    position: absolute;
+    left: 30%;
+  }
+
+  .links {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4em;
+    gap: 5em;
+
+    & > a {
+      color: white;
+      font-size: 2em;
+      text-underline: none;
+      text-shadow: black 0 0 1em;
+
+      &:hover {
+        cursor: pointer;
+        color: lightskyblue;
+        scale: 1.1;
+      }
+    }
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid white;
+    padding: .5em;
+    background: #282828;
+  }
 }
 
 .back-nav {
@@ -45,62 +97,8 @@ body {
   background: #ffffff;
   color: @color1;
   text-shadow: black 0 0 1em;
-}
 
-.back-nav:hover {
-  color: lightskyblue;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  border-top: 1px solid white;
-  padding: .5em;
-  background: #282828;
-}
-
-.text-area {
-  display: block;
-  width: 60%;
-  height: 90%;
-  background: #282828;
-  color: white;
-  font-size: 2.5em;
-  text-align: left;
-  padding: 1em;
-  border: none;
-  resize: none;
-  outline: none;
-  position: absolute;
-  left: 30%;
-}
-
-h1.welcome {
-  font-size: 4em;
-  font-weight: 100;
-  text-shadow: black 0 0 1em;
-}
-
-.links {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4em;
-  gap: 5em;
-}
-
-.links > a {
-  color: white;
-  font-size: 2em;
-  text-underline: none;
-  text-shadow: black 0 0 1em;
-}
-
-.links > a:hover {
-  cursor: pointer;
-  color: lightskyblue;
-  scale: 1.1;
+  &:hover {
+    color: lightskyblue;
+  }
 }
