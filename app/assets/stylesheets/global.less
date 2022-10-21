@@ -1,9 +1,23 @@
-@player1: rgba(204, 0, 0, 1);
-@player2: rgba(0, 0, 204, 1);
-@background: rgba(40, 40, 40, 1);
-@color1: black;
-@color2: white;
+@background-dark: rgba(40, 40, 40, 1);
+@background-light: rgb(176, 176, 176);
+@color-dark: black;
+@color-light: white;
+@color-hover: lightskyblue;
 @font: 'Avenir', Helvetica, Arial, sans-serif;
+
+.light-theme {
+  .main-body, .text-area, footer, a {
+    background: @background-light;
+    color: @color-dark;
+  }
+}
+
+.dark-theme {
+  .main-body, .text-area, footer, a {
+    background: @background-dark;
+    color: @color-light;
+  }
+}
 
 
 @keyframes fade-in {
@@ -15,11 +29,13 @@
   }
 }
 
+.fade-in {
+  animation: 1s fade-in ease-in;
+}
+
 body.main-body {
-  background: @background;
   font-family: @font;
   text-align: center;
-  color: @color2;
 
   h1.welcome {
     font-size: 4em;
@@ -32,17 +48,15 @@ body.main-body {
     display: flex;
     align-content: center;
     justify-content: space-between;
-    text-shadow: black 0.1em 0.1em 0.2em;
     min-width: 50%;
     margin-bottom: 2em;
   }
 
   .text-area {
     display: block;
-    width: 60%;
+    width: 690px;
     height: 90%;
-    background: #282828;
-    color: white;
+
     font-size: 2.5em;
     text-align: left;
     padding: 1em;
@@ -62,14 +76,13 @@ body.main-body {
     gap: 5em;
 
     & > a {
-      color: white;
       font-size: 2em;
       text-underline: none;
       text-shadow: black 0 0 1em;
 
       &:hover {
         cursor: pointer;
-        color: lightskyblue;
+        color: @color-hover;
         scale: 1.1;
       }
     }
@@ -82,11 +95,10 @@ body.main-body {
     width: 100%;
     border-top: 1px solid white;
     padding: .5em;
-    background: #282828;
   }
 }
 
-.back-nav {
+a.back-nav {
   position: absolute;
   top: 1.5em;
   left: 2em;
@@ -94,11 +106,11 @@ body.main-body {
   text-decoration: none;
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   padding: 0 .4em .2em;
-  background: #ffffff;
-  color: @color1;
+  background: @color-light;
+  color: @color-dark;
   text-shadow: black 0 0 1em;
 
   &:hover {
-    color: lightskyblue;
+    color: @color-hover;
   }
 }

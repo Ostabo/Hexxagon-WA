@@ -1,0 +1,75 @@
+@import "global.less";
+
+@slider-width: 6em;
+@slider-height: 3em;
+@slider-inset: 8px;
+
+@slider-color-light: white;
+@slider-color-dark: #1f1f1f;
+
+#toggle-container {
+  position: absolute;
+  top: 5em;
+  right: 5em;
+  display: inline-block;
+  width: @slider-width;
+  height: @slider-height;
+
+  & input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+@font-face {
+  font-family: "Font Awesome 6 Free";
+  src: url(../fonts/fa-regular-400.ttf);
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: @background-light;
+  transition: .4s;
+  outline: 1px solid @slider-color-dark;
+
+  &:before {
+    position: absolute;
+    left: @slider-inset;
+    bottom: @slider-inset;
+    transition: .4s;
+
+    font-family: "Font Awesome 6 Free", serif;
+
+    font-size: @slider-height / 2;
+
+    color: @slider-color-dark;
+    content: "\f185";
+  }
+}
+
+input:checked {
+  & + .slider {
+    background-color: @slider-color-dark;
+    outline: 1px solid @slider-color-light;
+
+    &:before {
+      content: "\f186";
+      transform: translateX(@slider-width * .4);
+      color: @slider-color-light;
+    }
+  }
+}
+
+.slider.round {
+  border-radius: @slider-width;
+
+  &:before {
+    border-radius: 50%;
+  }
+}

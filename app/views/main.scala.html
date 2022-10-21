@@ -7,7 +7,7 @@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-theme">
     <head>
         @* Here's where we render the page title `String`. *@
         <title>@title</title>
@@ -15,7 +15,8 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.ico")">
 
     </head>
-    <body class="main-body">
+    <body class="main-body" onload="init()">
+        @theme()
         @* And here's where we render the `Html` object containing
         * the page content. *@
         @content
