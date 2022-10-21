@@ -5,9 +5,9 @@ ThisBuild / version := "1.0"
 scalacOptions += "-Ytasty-reader"
 
 lazy val root = (project in file("."))
-  .enablePlugins(PlayScala)
+  .enablePlugins(PlayScala, SbtWeb)
   .settings(
-    name := """Hexxagon-WA""",
+    includeFilter in (Assets, LessKeys.less) := "*.less",
     libraryDependencies ++= Seq(
       guice,
       "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
