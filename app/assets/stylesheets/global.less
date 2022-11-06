@@ -6,14 +6,14 @@
 @font: 'Avenir', Helvetica, Arial, sans-serif;
 
 .light-theme {
-  .main-body, .text-area, footer, a {
+  .main-body, .textfield, footer, a {
     background: @background-light;
     color: @color-dark;
   }
 }
 
 .dark-theme {
-  .main-body, .text-area, footer, a {
+  .main-body, .textfield, footer, a {
     background: @background-dark;
     color: @color-light;
   }
@@ -52,12 +52,12 @@ body.main-body {
     margin-bottom: 2em;
   }
 
-  .text-area {
+  .textfield {
     display: block;
-    width: 690px;
+    min-width: 750px;
     height: 90%;
 
-    font-size: 2.5em;
+    font-size: 2em;
     text-align: left;
     padding: 1em;
     border: none;
@@ -65,27 +65,9 @@ body.main-body {
     outline: none;
     position: absolute;
     left: 30%;
-  }
 
-  .links {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 4em;
-    gap: 5em;
-
-    & > a {
-      font-size: 2em;
-      text-underline: none;
-      text-shadow: black 0 0 1em;
-
-      &:hover {
-        cursor: pointer;
-        color: @color-hover;
-        scale: 1.1;
-      }
-    }
+    font-family: revert;
+    line-height: initial;
   }
 
   footer {
@@ -109,6 +91,8 @@ a.back-nav {
   background: @color-light;
   color: @color-dark;
   text-shadow: black 0 0 1em;
+
+  line-height: initial;
 
   &:hover {
     color: @color-hover;
