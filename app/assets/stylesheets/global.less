@@ -6,19 +6,20 @@
 @font: 'Avenir', Helvetica, Arial, sans-serif;
 
 .light-theme {
-  .main-body, .textfield, footer, a {
+  .main-body, .textfield, footer, a, .dropdown-menu-dark,
+  .modal-content {
     background: @background-light;
     color: @color-dark;
   }
 }
 
 .dark-theme {
-  .main-body, .textfield, footer, a {
+  .main-body, .textfield, footer, a, .dropdown-menu-dark,
+  .modal-content {
     background: @background-dark;
     color: @color-light;
   }
 }
-
 
 @keyframes fade-in {
   0% {

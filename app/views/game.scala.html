@@ -1,31 +1,34 @@
 @(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Int)
 
-<head>
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
-</head>
-
-@main("Game-Overview") {
-    <main class="wrapper">
-        @navBack()
-        <div class="header">
-            <h2 class="counter c1">🔷: @counter1</h2>
-            <h2 class="status">@status</h2>
-            <h2 class="counter c2">🔴: @counter2</h2>
-        </div>
-        @for(rowIndex <- matrix.indices by +1) {
-            <div class="rowH">
-            @for(cellIndex <- matrix(rowIndex).indices.reverse by -1) {
-                <div class="hex" onclick="clickTile(this, @turn)" id="@cellIndex,@rowIndex">
-                @if(matrix(rowIndex)(cellIndex).equals('X')) {
-                    🔷
-                } else {
-                    @if(matrix(rowIndex)(cellIndex).equals('O')) {
-                        🔴
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
+        <title></title>
+    </head>
+    <body>
+        <main class="gamecontainer">
+            <div class="header">
+                <h2 class="counter c1">🔷: @counter1</h2>
+                <h2 class="status">@status</h2>
+                <h2 class="counter c2">🔴: @counter2</h2>
+            </div>
+            @for(rowIndex <- matrix.indices by +1) {
+                <div class="rowH">
+                @for(cellIndex <- matrix(rowIndex).indices.reverse by -1) {
+                    <div class="hex" onclick="clickTile(this, @turn)" id="@cellIndex,@rowIndex">
+                    @if(matrix(rowIndex)(cellIndex).equals('X')) {
+                        🔷
+                    } else {
+                        @if(matrix(rowIndex)(cellIndex).equals('O')) {
+                            🔴
+                        }
                     }
+                    </div>
                 }
                 </div>
             }
-            </div>
-        }
-    </main>
-}
+        </main>
+    </body>
+</html>

@@ -1,20 +1,80 @@
-@()
+@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Int)
 
 @main("Hexxagon") {
-    <h1 class="display-1 p-5">Welcome to Hexxagon!</h1>
+    <head>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
+        <title></title>
+    </head>
 
-    <ul class="nav justify-content-center flex-lg-column p-5 nav-pills nav-fill">
-        <li class="nav-item display-3 p-2">
-            <a class="nav-link active" href="/overview">Overview</a>
-        </li>
-        <li class="nav-item display-3 p-2">
-            <a class="nav-link" href="/overview-plain">Overview-plain</a>
-        </li>
-        <li class="nav-item display-3 p-2">
-            <a class="nav-link" href="/status">Status</a>
-        </li>
-        <li class="nav-item display-3 p-2">
-            <a class="nav-link" href="/about">About</a>
-        </li>
-    </ul>
+    <h1 class="display-1 p-1">Welcome to Hexxagon!</h1>
+
+    @game(matrix, status, counter1, counter2, turn)
+
+    <div class="dropdown actionbutton">
+        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+        aria-expanded="false">
+            actions
+        </button>
+        <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" id="undo" onclick="doAction('undo')">undo</a>
+            <a class="dropdown-item" id="redo" onclick="doAction('redo')">redo</a>
+            <a class="dropdown-item" id="save" data-bs-toggle="modal" data-bs-target="#saveModal">save</a>
+            <a class="dropdown-item" id="load" data-bs-toggle="modal" data-bs-target="#loadModal">load</a>
+            <a class="dropdown-item" id="reset" data-bs-toggle="modal" data-bs-target="#resetModal">reset</a>
+        </div>
+    </div>
+
+        <!-- Modal Reset -->
+    <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="resetModalLabel">Are you sure?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>You will lose your current game progress.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="doAction('reset')">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Load -->
+    <div class="modal fade" id="loadModal" tabindex="-1" aria-labelledby="loadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="loadModalLabel">Are you sure?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Loading a game will override your current game progress.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="doAction('load')">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Save -->
+    <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="loadModalLabel">Success</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="doAction('save')"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Your game has been saved!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 }

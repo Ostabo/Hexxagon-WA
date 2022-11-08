@@ -23,7 +23,17 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
    * a path of `/`.
    */
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
+    Ok(views.html.index(
+      controller.hexfield.matrix.matrix,
+      controller.gamestatus.message(),
+      controller.hexfield.matrix.Xcount.toString,
+      controller.hexfield.matrix.Ocount.toString,
+      if (controller.gamestatus.equals(GameStatus.TURNPLAYER1) || controller.gamestatus.equals(GameStatus.IDLE))
+        0
+      else
+        1
+    )
+    )
   }
 
   def about(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
