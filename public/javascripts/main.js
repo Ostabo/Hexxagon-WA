@@ -44,3 +44,16 @@ function clickTile(elRef, turn) {
         body: "",
     }).then(() => location.reload());
 }
+
+function doAction(action) {
+    console.log(action);
+
+    fetch(action, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: "",
+    }).then(() => location.reload());
+}
