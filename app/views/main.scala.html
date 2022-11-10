@@ -7,7 +7,7 @@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
-<html lang="en" class="dark-theme h-100">
+<html lang="en" class="dark-theme">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +16,9 @@
         @* Bootstrap *@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+        @* Bootstrap Icons *@
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@@1.9.1/font/bootstrap-icons.css">
 
         @* Here's where we render the page title `String`. *@
         <title>@title</title>
@@ -27,23 +30,31 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
     </head>
-    <body class="main-body" onload="init()">
-        <nav class="navbar navbar-expand-sm navbar-dark">
+    <body class="main-body h-100" onload="init()">
+        <nav class="navbar navbar-expand-sm navbar-dark border-bottom mb-3 fs-4">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="@routes.Assets.versioned("images/favicon.ico")" alt="logo" class="logo" height="40">
+                    <img src="@routes.Assets.versioned("images/favicon.ico")" alt="logo" class="logo" height="40" width="40" loading="eager">
                 </a>
                 @theme()
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#n_bar" aria-controls="navbarNavAltMarkup" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="n_bar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <ul class="navbar-nav nav-fill">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">
+                                <i class="bi bi-controller m-1"></i>Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">
+                                <i class="bi bi-chat-left-quote m-1"></i>About
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                More
+                                <i class="bi bi-list m-1"></i>More
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="/overview-plain">Game Plain</a></li>
@@ -60,11 +71,23 @@
         * the page content. *@
         @content
 
-        <footer>
-            <a href=https://github.com/Ostabo/Hexxagon-WA>
-                <img alt="" src="@routes.Assets.versioned("images/GitHub_Logo_White.png")"
-                height="20">
-            </a>
+        <footer class="footer border-top">
+            <div class="container">
+                <div class="d-flex flex-wrap justify-content-lg-center align-items-center py-2">
+                    <div class="col-md-5 d-flex align-items-center justify-content-lg-between">
+                        <a href=https://github.com/Ostabo/Hexxagon-WA class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                            <img alt="" src="@routes.Assets.versioned("images/github.png")" height="30">
+                        </a>
+                        <span class="m-3">2022 Hexxagon - AIN</span>
+                        <a class="text-muted small text-decoration-none" href="https://github.com/naedmi">
+                            Nadine Görzen
+                        </a>
+                        <a class="text-muted small text-decoration-none" href="https://github.com/Ostabo">
+                            Oskar Borkenhagen
+                        </a>
+                    </div>
+                </div>
+            </div>
         </footer>
 
             <!-- Modal Login -->

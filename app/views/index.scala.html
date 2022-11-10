@@ -3,26 +3,11 @@
 @main("Hexxagon") {
     <head>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
-        <title></title>
     </head>
 
-    <h1 class="mb-3">Welcome to Hexxagon!</h1>
+    <h1 class="p-3">Welcome to Hexxagon!</h1>
 
     @game(matrix, status, counter1, counter2, turn)
-
-    <div class="dropdown actionbutton">
-        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-        aria-expanded="false">
-            actions
-        </button>
-        <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" id="undo" onclick="doAction('undo')">undo</a>
-            <a class="dropdown-item" id="redo" onclick="doAction('redo')">redo</a>
-            <a class="dropdown-item" id="save" data-bs-toggle="modal" data-bs-target="#saveModal">save</a>
-            <a class="dropdown-item" id="load" data-bs-toggle="modal" data-bs-target="#loadModal">load</a>
-            <a class="dropdown-item" id="reset" data-bs-toggle="modal" data-bs-target="#resetModal">reset</a>
-        </div>
-    </div>
 
         <!-- Modal Reset -->
     <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">

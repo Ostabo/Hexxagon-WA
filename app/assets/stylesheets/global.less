@@ -5,8 +5,13 @@
 @color-hover: lightskyblue;
 @font: 'Avenir', Helvetica, Arial, sans-serif;
 
+@font-face {
+  font-family: Hexa;
+  src: url(../fonts/Hexa.ttf);
+}
+
 .light-theme {
-  .main-body, .textfield, footer, a, .dropdown-menu-dark,
+  .main-body, textarea, footer, a, .dropdown-menu-dark,
   .modal-content {
     background: @background-light;
     color: @color-dark;
@@ -14,7 +19,7 @@
 }
 
 .dark-theme {
-  .main-body, .textfield, footer, a, .dropdown-menu-dark,
+  .main-body, textarea, footer, a, .dropdown-menu-dark,
   .modal-content {
     background: @background-dark;
     color: @color-light;
@@ -39,6 +44,7 @@ body.main-body {
   text-align: center;
 
   h1.welcome {
+    font-family: Hexa, serif;
     font-size: 4em;
     font-weight: 100;
     text-shadow: black 0 0 1em;
@@ -53,30 +59,19 @@ body.main-body {
     margin-bottom: 2em;
   }
 
-  .textfield {
+  textarea {
     display: block;
-    min-width: 750px;
-    height: 90%;
+    min-width: 740px;
+    height: 740px;
 
-    font-size: 2em;
+    font-size: 1.8em;
     text-align: left;
     padding: 1em;
     border: none;
     resize: none;
     outline: none;
-    position: absolute;
-    left: 30%;
 
     font-family: revert;
     line-height: initial;
-  }
-
-  footer {
-    position: static;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-top: 1px solid white;
-    padding: .5em;
   }
 }

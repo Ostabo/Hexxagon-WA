@@ -1,14 +1,11 @@
 @(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Int)
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
-        <title></title>
-    </head>
-    <body>
-        <main class="gamecontainer">
+<head>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
+</head>
+<body>
+    <main class="container">
+        <div class="gamecontainer me-3">
             <div class="header">
                 <h2 class="counter c1">🔷: @counter1</h2>
                 <h2 class="status">@status</h2>
@@ -29,6 +26,20 @@
                 }
                 </div>
             }
-        </main>
-    </body>
-</html>
+        </div>
+        <div class="dropdown actionbutton text-capitalize p-4">
+            <button class="btn btn-light dropdown-toggle text-capitalize fs-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+            aria-expanded="false">
+                <i class="bi bi-dpad-fill p-1"></i>
+                actions
+            </button>
+            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" id="undo" onclick="doAction('undo')">undo</a>
+                <a class="dropdown-item" id="redo" onclick="doAction('redo')">redo</a>
+                <a class="dropdown-item" id="save" data-bs-toggle="modal" data-bs-target="#saveModal">save</a>
+                <a class="dropdown-item" id="load" data-bs-toggle="modal" data-bs-target="#loadModal">load</a>
+                <a class="dropdown-item" id="reset" data-bs-toggle="modal" data-bs-target="#resetModal">reset</a>
+            </div>
+        </div>
+    </main>
+</body>
