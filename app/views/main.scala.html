@@ -30,7 +30,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
     </head>
-    <body class="main-body h-100">
+    <body class="main-body h-100" onload="init()">
         <nav class="navbar navbar-expand-sm navbar-dark border-bottom pb-2 fs-4">
             <div class="container">
                 <a class="navbar-brand" href="/">
@@ -61,7 +61,22 @@
                             </ul>
                         </li>
                     </ul>
-                    <button class="btn btn-light ms-auto" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                    <button class="btn btn-light ms-auto" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="bi bi-person"></i>
+                        Login
+                    </button>
+                    <div class="dropdown ms-3">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-gear"></i>
+                        </button>
+                        <div class="dropdown-menu justify-content-center text-center settings" aria-labelledby="dropdownMenuButton">
+                            <span>@theme()</span>
+                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help">
+                                <i class="bi bi-question-circle-fill"></i>
+                                Help
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -74,7 +89,7 @@
 
         <footer class="footer border-top">
             <div class="container">
-                <div class="d-flex flex-wrap justify-content-lg-center align-items-center py-2">
+                <div class="d-flex flex-wrap justify-content-lg-center align-items-center">
                     <div class="col-md-5 d-flex align-items-center justify-content-lg-between">
                         <a href=https://github.com/Ostabo/Hexxagon-WA class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                             <img alt="" src="@routes.Assets.versioned("images/github.png")" height="30">
@@ -116,6 +131,29 @@
                         </div>
                         <p class="text-center">Don't have an account yet? <a href="#">Sign up</a></p>
                     </form>
+                </div>
+            </div>
+        </div>
+
+            <!-- Modal Help-->
+        <div class="modal fade" id="help" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Help</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="p-4">
+                            Issues fix themselves if you refresh the page.<br>
+                            <strong>F5</strong> is your friend.
+                        </p>
+                    </div>
+                    <div class="modal-footer pt-4 justify-content-center align-content-center">
+                        If you have any questions, please contact us @@
+                        <a href="https://github.com/Ostabo/Hexxagon-WA">
+                            <img class="w-100" src="@routes.Assets.versioned("images/GitHub_Logo_White.png")" alt="Github">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

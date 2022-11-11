@@ -1,5 +1,5 @@
 @background-dark: rgba(40, 40, 40, 1);
-@background-light: rgb(176, 176, 176);
+@background-light: rgb(185, 185, 185);
 @color-dark: black;
 @color-light: white;
 @color-hover: lightskyblue;
@@ -43,14 +43,27 @@ body.main-body {
   font-family: @font;
   text-align: center;
 
+  nav ul {
+    gap: 1vw;
+  }
+
   #content-wrapper {
-    background: url(../img/background-hex.jpg);
+    //background: url(../img/background-hex.jpg);
+    background: url(../img/background-universe.jpg);
     min-height: 100%;
     min-width: 100%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     overflow-y: hidden;
     overflow-x: hidden;
+  }
+
+  .settings {
+    min-width: min-content;
+
+    .dropdown-item {
+      margin-top: 1vmin;
+    }
   }
 
   h1.welcome {
