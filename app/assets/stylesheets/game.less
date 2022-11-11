@@ -1,3 +1,6 @@
+@hex-h: 8vmin;
+@hex-w: 1.1 * @hex-h;
+
 .gamecontainer {
   display: flex;
   flex-direction: column;
@@ -13,25 +16,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 9px;
-
-    margin-left: 10.8em;
+    margin-top: @hex-h / 8;
 
     .hex {
-      width: 88px;
-      height: 80px;
+      width: @hex-w;
+      height: @hex-h;
       background: white;
       text-shadow: black 0 1.6px 1.6px;
       text-align: center;
-      line-height: 80px;
-      font-size: calc(80px / 2);
+      line-height: @hex-h;
+      font-size: @hex-h / 2;
       transition: all .1s linear;
       clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
 
-      margin-left: -4em;
+      margin-left: -1 * @hex-h / 8;
 
       &:nth-child(odd) {
-        margin-top: calc(80px * -1 - 80px / 10) !important;
+        margin-top: @hex-h * -1 - @hex-h / 10 !important;
       }
 
       &:hover {
@@ -40,8 +41,4 @@
       }
     }
   }
-}
-
-#toggle-container {
-  display: none !important;
 }

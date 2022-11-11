@@ -33,7 +33,6 @@ function clickTile(elRef, turn) {
     const [x, y] = elRef.id.toString().split(',');
 
     const req = `/place/${x}/${y}/${availableTurns[turn]}`;
-    console.log(req);
 
     fetch(req, {
         method: 'POST',
@@ -46,8 +45,6 @@ function clickTile(elRef, turn) {
 }
 
 function doAction(action) {
-    console.log(action);
-
     fetch(action, {
         method: 'POST',
         headers: {
