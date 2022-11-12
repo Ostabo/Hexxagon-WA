@@ -12,7 +12,7 @@
 
 .light-theme {
   .main-body, textarea, footer, a, .dropdown-menu-dark,
-  .modal-content, main {
+  .modal-content, main, .card:not(:is(section .card)) {
     background: @background-light;
     color: @color-dark;
   }
@@ -20,7 +20,7 @@
 
 .dark-theme {
   .main-body, textarea, footer, a, .dropdown-menu-dark,
-  .modal-content, main {
+  .modal-content, main, .card:not(:is(section .card)) {
     background: @background-dark;
     color: @color-light;
   }

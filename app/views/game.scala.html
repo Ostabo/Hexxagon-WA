@@ -28,6 +28,7 @@
                 </div>
             }
         </div>
+
         <div class="dropup actionbutton text-capitalize p-4">
             <button class="btn btn-light dropdown-toggle text-capitalize fs-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -42,5 +43,38 @@
                 <a class="dropdown-item" id="reset" data-bs-toggle="modal" data-bs-target="#resetModal">reset</a>
             </div>
         </div>
+
+        @if(status.equals("GAME OVER")) {
+                <!-- Modal GAME OVER-->
+            <div id="game-over" class="position-absolute start-50 top-50 card border-1 border-light translate-middle">
+                <div class="card-content">
+                    <div class="card-header border-bottom">
+                        <h5 class="card-title">
+                            GAME OVER -
+                            @if(counter1 > counter2) {
+                                PLAYER 1 🔷 WON!
+                            } else {
+                                @if(counter1 < counter2) {
+                                    PLAYER 2 🔴 WON!
+                                } else {
+                                    DRAW ⚪
+                        }
+                        }
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">
+                            To start a new game, click on the reset button in the action menu.
+                            <button type="button" class="btn btn-outline-light text-light" aria-label="Close" onclick="doAction('/reset')">
+                                Reset</button>
+                            <button type="button" class="btn btn-outline-light text-light" aria-label="Close" onclick="removeCard()">
+                                Close</button>
+                        </div>
+                        <div class="card-footer justify-content-center align-content-center">
+                            Thanks for playing!
+                        </div>
+                    </div>
+                </div>
+                }
     </main>
 </body>

@@ -54,3 +54,8 @@ function doAction(action) {
         body: "",
     }).then(() => location.reload());
 }
+
+function removeCard() {
+    const card = document.getElementById('game-over');
+    card.style.display = 'none';
+}

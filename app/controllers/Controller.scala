@@ -11,7 +11,7 @@ import javax.inject._
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class Controller @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   val controller: ControllerInterface[Char] = starter.runController
 

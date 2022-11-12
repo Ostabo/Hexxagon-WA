@@ -5,8 +5,8 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/about.css")">
     </head>
 
-    <main class="container about">
-        <h1 class="about-heading">
+    <main class="container bg-transparent bg-opacity-10">
+        <h1 class="my-lg-5 py-lg-5 shadow-lg rounded-5 border-2 about-heading">
             ██╗░░██╗███████╗██╗░░██╗██╗░░██╗░█████╗░░██████╗░░█████╗░███╗░░██╗<br>
             ██║░░██║██╔════╝╚██╗██╔╝╚██╗██╔╝██╔══██╗██╔════╝░██╔══██╗████╗░██║<br>
             ███████║█████╗░░░╚███╔╝░░╚███╔╝░███████║██║░░██╗░██║░░██║██╔██╗██║<br>
@@ -15,31 +15,149 @@
             ╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░░╚════╝░╚═╝░░╚══╝
         </h1>
 
-        <table>
-            <tr>
-                <th class="table-heading">The Game</th>
-                <th class="table-heading">About</th>
-            </tr>
+        <section class="m-lg-5 h-50 gradient-custom rounded-5">
+            <div class="container-sm w-75 py-5">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-xl-10">
+                        <div class="card h-25">
+                            <div class="card-body py-5">
 
-            <tr class="table-content">
-                <td>
-                    Hexxagon is a strategy board game played in a two player mode. The board consists of several hexagonal
-                    tiles that are arranged in another hexagonal grid.
-                    <br><br>
-                    The two players take turns at placing their stones on one of the tiles.
-                    After occupying one tile, all the stones in adjacent fields will convert to the same that was just placed.
-                    <br><br>
-                    The goal of the game is to capture as many fields as possible.
-                    The player with most stones on the board wins.
-                </td>
-                <td>This project is developed using the Scala Play Framework as an example for the lecture Web Applications
-                    at the HTWG Konstanz.</td>
-            </tr>
-            <tr>
-                <td colspan="2" class="img-container">
-                    <img alt="" src=@routes.Assets.versioned("images/game.gif")>
-                </td>
-            </tr>
-        </table>
+                                    <!-- Carousel wrapper -->
+                                <div id="carouselDarkVariant" class="carousel slide carousel-dark" data-bs-ride="carousel">
+                                        <!-- Indicators -->
+                                    <div class="carousel-indicators mb-0">
+                                        <button data-bs-target="#carouselDarkVariant" data-bs-slide-to="0" class="active"
+                                        aria-current="true" aria-label="Slide 1"></button>
+                                        <button data-bs-target="#carouselDarkVariant" data-bs-slide-to="1"
+                                        aria-label="Slide 1"></button>
+                                    </div>
+
+                                        <!-- Inner -->
+                                    <div class="carousel-inner pt-2 pb-5">
+                                            <!-- Single item -->
+                                        <div class="carousel-item active">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-md-8 col-lg-9 col-xl-8">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="@routes.Assets.versioned("images/cgp-grey.png")"
+                                                            class="rounded-circle mb-4 mb-lg-0 shadow-2" alt="cgp grey" width="90"
+                                                            about="By CGP Grey - Original publication: Should all locks have keys? Phones, Castles, Encryption, and You. on YouTubeImmediate source: Cropped from a screenshot shown in The Daily Dot article, Fair use, https://en.wikipedia.org/w/index.php?curid=57163248"
+                                                            height="90">
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-4 ps-3">
+                                                            <figure>
+                                                                <blockquote class="blockquote mb-4">
+                                                                    <p>
+                                                                        <i class="bi bi-quote text-warning me-2"></i>
+                                                                        <span class="font-italic text-dark">
+                                                                            Hexagons are the Bestagons.
+                                                                        </span>
+                                                                    </p>
+                                                                </blockquote>
+                                                                <figcaption class="blockquote-footer">
+                                                                    CGP Grey <cite title="Source Title">
+                                                                    <a class="text-decoration-none bg-transparent text-dark" href="https://www.youtube.com/watch?v=thOifuHs6eY">
+                                                                        YT</a></cite>
+                                                                </figcaption>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                            <!-- Single item -->
+                                        <div class="carousel-item">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-md-8 col-lg-9 col-xl-8">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="@routes.Assets.versioned("images/bee.webp")"
+                                                            class="rounded-circle mb-4 mb-lg-0 shadow-2" alt="woman avatar" width="90"
+                                                            height="90">
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-4 ps-3">
+
+                                                            <figure>
+                                                                <blockquote class="blockquote mb-4">
+                                                                    <p>
+                                                                        <i class="bi bi-quote text-warning me-2"></i>
+                                                                        <span class="font-italic text-dark">
+                                                                            <i>Bzzz</i>
+                                                                        </span>
+                                                                    </p>
+                                                                </blockquote>
+                                                                <figcaption class="blockquote-footer">
+                                                                    Biene <cite title="Source Title">
+                                                                    Stamm des großen Summens</cite>
+                                                                </figcaption>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <!-- Inner -->
+
+                                        <!-- Controls -->
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDarkVariant"
+                                    data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselDarkVariant"
+                                    data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                    <!-- Carousel wrapper -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container text-start">
+            <div class="row m-lg-5">
+                <div class="card col-md m-lg-5">
+                    <h5 class="card-header">The Game</h5>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Hexxagon is a strategy board game played in a two player mode. The board consists of several hexagonal
+                            tiles that are arranged in another hexagonal grid.
+                            <br><br>
+                            The two players take turns at placing their stones on one of the tiles.
+                            After occupying one tile, all the stones in adjacent fields will convert to the same that was just placed.
+                            <br><br>
+                            The goal of the game is to capture as many fields as possible.
+                            The player with most stones on the board wins.
+                        </p>
+                    </div>
+                </div>
+                <div class="card col-lg m-lg-5">
+                    <h5 class="card-header">About</h5>
+                    <div class="card-body">
+                        <p class="card-text">
+                            This project is developed using the Scala Play Framework as an example for the lecture Web Applications
+                            at the HTWG Konstanz.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+                <div class="card mb-lg-5 img-card">
+                    <h5 class="card-header">How To</h5>
+                    <div class="card-body">
+                        <img class="card-img-bottom" alt="" src=@routes.Assets.versioned("images/game.gif")>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 }
