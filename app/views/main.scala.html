@@ -13,6 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
 
+        <link rel="prefetch" href="@routes.Assets.versioned("images/background-universe.jpg")" as="image">
+
         @* Bootstrap *@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -34,7 +36,7 @@
         <nav class="navbar navbar-expand-sm navbar-dark border-bottom pb-2 fs-4">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="@routes.Assets.versioned("images/favicon.ico")" alt="logo" class="logo" height="40" width="40" loading="eager">
+                    <img src="@routes.Assets.versioned("images/favicon.ico")" alt="logo" class="logo" height="40" width="40" loading="lazy">
                 </a>
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#n_bar" aria-controls="navbarNavAltMarkup" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -65,11 +67,11 @@
                         <i class="bi bi-person"></i>
                         Login
                     </button>
-                    <div class="dropdown ms-3">
+                    <div class="dropdown mx-3 my-1">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bi bi-gear"></i>
                         </button>
-                        <div class="dropdown-menu justify-content-center text-center settings" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu text-center settings" aria-labelledby="dropdownMenuButton">
                             <span>@theme()</span>
                             <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help">
                                 <i class="bi bi-question-circle-fill"></i>
@@ -81,11 +83,11 @@
             </div>
         </nav>
 
-        <div id="content-wrapper" class="bg-image img-responsive">
-            @* And here's where we render the `Html` object containing
-            * the page content. *@
-            @content
-        </div>
+            <!-- preload image -->
+        <img class="img-responsive" src="@routes.Assets.versioned("images/background-universe.jpg")" alt="" loading="eager"/>
+        @* And here's where we render the `Html` object containing
+        * the page content. *@
+        @content
 
         <footer class="footer border-top">
             <div class="container">

@@ -11,7 +11,7 @@
 }
 
 .light-theme {
-  .main-body, textarea, footer, a, .dropdown-menu-dark,
+  .main-body, textarea, footer, nav, a, .dropdown-menu-dark,
   .modal-content, main, .card:not(:is(section .card)) {
     background: @background-light;
     color: @color-dark;
@@ -19,7 +19,7 @@
 }
 
 .dark-theme {
-  .main-body, textarea, footer, a, .dropdown-menu-dark,
+  .main-body, textarea, footer, nav, a, .dropdown-menu-dark,
   .modal-content, main, .card:not(:is(section .card)) {
     background: @background-dark;
     color: @color-light;
@@ -42,24 +42,33 @@
 body.main-body {
   font-family: @font;
   text-align: center;
+  min-height: 100vh;
 
   nav ul {
     gap: 1vw;
   }
 
-  #content-wrapper {
-    //background: url(../img/background-hex.jpg);
-    background: url(../img/background-universe.jpg);
-    min-height: 100%;
-    min-width: 100%;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+  .img-responsive {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
   }
 
+  main {
+    min-height: 86.45vh;
+  }
+
   .settings {
     min-width: min-content;
+    left: 50%;
+    transform: translateX(-50%);
 
     .dropdown-item {
       margin-top: 1vmin;
