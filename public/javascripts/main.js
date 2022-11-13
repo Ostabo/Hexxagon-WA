@@ -26,12 +26,3 @@ function toggleTheme() {
         localStorage.setItem("theme", "light");
     }
 }
-
-function removeCard() {
-    $('#game-over').css('display', 'none');
-}
-
-function removeCardAndReset() {
-    removeCard();
-    doAction('reset');
-}

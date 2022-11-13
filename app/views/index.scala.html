@@ -64,25 +64,25 @@
     </div>
 
         <!-- Modal GAME OVER-->
-    <div id="game-over" class="position-absolute start-50 top-50 card border-1 border-light translate-middle">
-        <div class="card-content">
-            <div class="card-header border-bottom">
-                <h5 class="card-title">
-                    GAME OVER
-                </h5>
-            </div>
-            <div class="card-body">
-                <div class="card-title">
-                    <div class="card-content" id="game-over-content"></div>
+    <div class="modal fade" id="gameOverModal" tabindex="-1" aria-labelledby="gameOverModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title">
+                        GAME OVER
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="modal-title" id="game-over-content"></h5>
                     <br>To start a new game, click on the reset button in the action menu.
                     Thanks for playing!
                 </div>
-                <div class="card-footer justify-content-center align-content-center">
-                    <button type="button" class="btn btn-outline-light text-light" aria-label="Close"
-                    onclick="removeCardAndReset()">
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-light text-dark" aria-label="Reset" data-bs-dismiss="modal"
+                    onclick="doAction('reset');">
                         Reset</button>
-                    <button type="button" class="btn btn-outline-light text-light" aria-label="Close"
-                    onclick="removeCard()">
+                    <button type="button" class="btn btn-outline-light text-light" aria-label="Close" data-bs-dismiss="modal">
                         Close</button>
                 </div>
             </div>

@@ -16,7 +16,8 @@ async function doAction(action) {
         body: "",
     })
 
-    updateGame(await (await res).text())
+    if (res.ok)
+        updateGame(await (await res).text())
 }
 
 function updateGame(text) {
@@ -47,7 +48,7 @@ function updateGame(text) {
         else
             content.text('It\'s a draw! ⚪');
 
-        $('#game-over').css('display', 'block');
+        $('#gameOverModal').modal('show');
 
         status.childNodes[0].nodeValue = 'GAME';
         status.childNodes[1].childNodes[0].nodeValue = ' ';
