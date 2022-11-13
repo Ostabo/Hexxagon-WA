@@ -43,44 +43,40 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.place(stone.toUpper, x, y)
-    Ok(controller.toString)
+    Ok(controller.exportField)
   }
 
   def fillAll(stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.fillAll(stone.toUpper)
-    Ok(controller.toString)
+    Ok(controller.exportField)
   }
 
   def undo(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.undo
-    Ok(controller.toString)
+    Ok(controller.exportField)
   }
 
   def redo(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.redo
-    Ok(controller.toString)
+    Ok(controller.exportField)
   }
 
   def save(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.save
-    Ok(controller.toString)
+    Ok(controller.exportField)
   }
 
   def load(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.load
-    Ok(controller.toString)
+    Ok(controller.exportField)
   }
 
   def reset(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     controller.reset
-    Ok(controller.toString)
+    Ok(controller.exportField)
   }
 
   def notFound(page: String): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     NotFound(views.html.notFound(page))
-  }
-
-  def getField: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(controller.exportField)
   }
 }

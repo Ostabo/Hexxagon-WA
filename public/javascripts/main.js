@@ -28,12 +28,10 @@ function toggleTheme() {
 }
 
 function removeCard() {
-    const card = document.getElementById('game-over');
-    card.style.display = 'none';
+    $('#game-over').css('display', 'none');
 }
 
 function removeCardAndReset() {
-    const card = document.getElementById('game-over');
-    card.style.display = 'none';
+    removeCard();
     doAction('reset');
 }

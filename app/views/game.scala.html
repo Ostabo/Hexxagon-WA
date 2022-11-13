@@ -2,31 +2,30 @@
 
 <head>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
-    <title></title>
 </head>
 <body>
     <main class="container">
         <h1 class="p-3">Welcome to Hexxagon!</h1>
         <div class="gamecontainer">
             <div class="header">
-                <h2 class="counter c1">
+                <h2>
                     🔷:
-                    <span class="counter-value c1">0</span>
+                    <span id="c1">0</span>
                 </h2>
-                <h2 class="status">
+                <h2 class="status" id="status">
                     Player
-                    <span class="turn">1</span>
+                    <span id="turn">1</span>
                     's turn
                 </h2>
-                <h2 class="counter c2">
+                <h2>
                     🔴:
-                    <span class="counter-value c2">0</span>
+                    <span id="c2">0</span>
                 </h2>
             </div>
             @for(rowIndex <- 0 to 5 by +1) {
                 <div class="rowH">
                 @for(colIndex <- 8 to 0 by -1) {
-                    <div class="hex" onclick="clickTile(this, document.getElementsByClassName('turn')[0].innerText)"
+                    <div class="hex" onclick="clickTile(this, document.getElementById('turn').innerText)"
                     id="@colIndex,@rowIndex"></div>
                 }
                 </div>

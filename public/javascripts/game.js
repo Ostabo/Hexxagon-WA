@@ -1,13 +1,15 @@
-async function clickTile(elRef, turn) {
+const TILE_COUNT = 54;
+
+function clickTile(elRef, turn) {
     const availableTurns = ['X', 'O']
     const [x, y] = elRef.id.toString().split(',');
-    const req = `/place/${x}/${y}/${availableTurns[turn-1]}`;
+    const req = `/place/${x}/${y}/${availableTurns[turn - 1]}`;
 
-    await doAction(req);
+    doAction(req);
 }
 
 async function doAction(action) {
-    await fetch(action, {
+    const res = await fetch(action, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -16,18 +18,15 @@ async function doAction(action) {
         body: "",
     })
 
-    let response = await fetch('/field', {
-        method: 'GET'
-    })
-    response.text().then(text => updateGame(text));
+    updateGame(await (await res).text())
 }
 
 function updateGame(text) {
     // get all elements from the page
     const tiles = document.getElementsByClassName("hex");
-    const c1 = document.getElementsByClassName('counter-value c1');
-    const c2 = document.getElementsByClassName('counter-value c2');
-    const t = document.getElementsByClassName('turn');
+    const c1 = $('#c1');
+    const c2 = $('#c2');
+    const t = $('#turn');
 
     // parse the response
     let parser = new DOMParser();
@@ -37,22 +36,21 @@ function updateGame(text) {
     updateStatus(c1, c2, t, xml)
     updateField(tiles, xml);
 
-    // check if the game is over
-    if (parseInt(c1[0].innerHTML) + parseInt(c2[0].innerHTML) === 54) {
-        console.log('game over');
-        const card = document.getElementById('game-over');
-        const content = document.getElementById('game-over-content');
-        const counter1 = document.getElementsByClassName('counter c1')[0].innerText;
-        const counter2 = document.getElementsByClassName('counter c2')[0].innerText;
+    const counter1 = c1.text();
+    const counter2 = c2.text();
+    if (parseInt(counter1) + parseInt(counter2) === TILE_COUNT) {
+        const content = $('#game-over-content');
 
         if (counter1 > counter2)
-            content.innerHTML = 'Player 1 🔷 wins!';
+            content.text('Player 1 🔷 wins!');
         else if (counter2 > counter1)
-            content.innerHTML = 'Player 2 🔶 wins!';
+            content.text('Player 2 🔴 wins!');
         else
-            content.innerHTML = 'It\'s a draw! ⚪';
+            content.text('It\'s a draw! ⚪');
 
-        card.style.display = 'block';
+        $('#game-over').css('display', 'block');
+
+        $('#status').text('GAME OVER')
     }
 }
 
