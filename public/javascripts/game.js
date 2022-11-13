@@ -1,5 +1,3 @@
-const TILE_COUNT = 54;
-
 function clickTile(elRef, turn) {
     const availableTurns = ['X', 'O']
     const [x, y] = elRef.id.toString().split(',');
@@ -38,7 +36,8 @@ function updateGame(text) {
 
     const counter1 = c1.text();
     const counter2 = c2.text();
-    if (parseInt(counter1) + parseInt(counter2) === TILE_COUNT) {
+    const status = document.getElementById('status');
+    if (parseInt(counter1) + parseInt(counter2) === tiles.length) {
         const content = $('#game-over-content');
 
         if (counter1 > counter2)
@@ -50,7 +49,12 @@ function updateGame(text) {
 
         $('#game-over').css('display', 'block');
 
-        $('#status').text('GAME OVER')
+        status.childNodes[0].nodeValue = 'GAME';
+        status.childNodes[1].childNodes[0].nodeValue = ' ';
+        status.childNodes[2].nodeValue = 'OVER';
+    } else if (status.childNodes[0].nodeValue === 'GAME') {
+        status.childNodes[0].nodeValue = 'Player ';
+        status.childNodes[2].nodeValue = ' \'s turn';
     }
 }
 
