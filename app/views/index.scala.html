@@ -1,11 +1,11 @@
-@()
+@(matrix: Vector[Vector[Char]], turn: String, c1: String, c2: String)
 
 @main("Hexxagon") {
     <head>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
     </head>
 
-    @game()
+    @game(matrix, turn, c1, c2)
 
         <!-- Modal Reset -->
     <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
@@ -88,4 +88,18 @@
             </div>
         </div>
     </div>
+
+        <!-- Toast -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-exclamation-octagon mx-lg-2 fs-2"></i>
+                <strong class="mx-auto fs-5">Watch out!</strong>
+                <button class="bi bi-x mx-lg-2 fs-2" id="toast-button" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast-msg">
+            </div>
+        </div>
+    </div>
+
 }

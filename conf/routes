@@ -9,8 +9,6 @@ GET         /                          controllers.Controller.index()
 # Request the current status of the game
 GET         /status                    controllers.Controller.status()
 
-# Game overview
-GET         /overview                  controllers.Controller.overview()
 # Game overview in simpler html/text style
 GET         /overview-plain            controllers.Controller.overviewPlain()
 

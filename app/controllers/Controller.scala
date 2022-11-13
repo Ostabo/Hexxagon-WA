@@ -1,5 +1,6 @@
 package controllers
 
+import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
 import play.api.mvc._
 
@@ -22,7 +23,16 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
    * a path of `/`.
    */
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
+    Ok(views.html.index(
+      controller.hexfield.matrix.matrix,
+      controller.gamestatus match {
+        case GameStatus.TURNPLAYER1 | GameStatus.IDLE => "1"
+        case GameStatus.TURNPLAYER2 => "2"
+        case _ => " "
+      },
+      controller.hexfield.matrix.Xcount.toString,
+      controller.hexfield.matrix.Ocount.toString
+    ))
   }
 
   def about(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -33,17 +43,20 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
     Ok(views.html.gamePlain(controller.gamestatus.message()))
   }
 
-  def overview(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.game())
-  }
-
   def overviewPlain(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.gamePlain(controller.toString))
   }
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    controller.place(stone.toUpper, x, y)
-    Ok(controller.exportField)
+    if (controller.gamestatus.equals(GameStatus.TURNPLAYER2) && stone.equals('X')
+      || controller.gamestatus.equals(GameStatus.TURNPLAYER1) && stone.equals('O')) {
+      NotAcceptable("Wrong Player!")
+    } else if (!controller.hexfield.matrix.cell(x, y).equals(' ')) {
+      NotAcceptable("Cell is occupied!")
+    } else {
+      controller.place(stone.toUpper, x, y)
+      Ok(controller.exportField)
+    }
   }
 
   def fillAll(stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>

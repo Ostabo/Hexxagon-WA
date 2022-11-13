@@ -18,6 +18,16 @@ async function doAction(action) {
 
     if (res.ok)
         updateGame(await (await res).text())
+    else
+        triggerToast(await (await res).text())
+}
+
+function triggerToast(msg) {
+    $('#toast-msg').text(msg);
+
+    const toast = new bootstrap.Toast($('#liveToast'));
+
+    toast.show();
 }
 
 function updateGame(text) {
