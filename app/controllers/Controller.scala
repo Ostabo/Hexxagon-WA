@@ -1,6 +1,5 @@
 package controllers
 
-import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
 import play.api.mvc._
 
@@ -23,17 +22,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
    * a path of `/`.
    */
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index(
-      controller.hexfield.matrix.matrix,
-      controller.gamestatus.message(),
-      controller.hexfield.matrix.Xcount.toString,
-      controller.hexfield.matrix.Ocount.toString,
-      if (controller.gamestatus.equals(GameStatus.TURNPLAYER1) || controller.gamestatus.equals(GameStatus.IDLE))
-        0
-      else
-        1
-    )
-    )
+    Ok(views.html.index())
   }
 
   def about(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -45,18 +34,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
   }
 
   def overview(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok(
-      views.html.game(
-        controller.hexfield.matrix.matrix,
-        controller.gamestatus.message(),
-        controller.hexfield.matrix.Xcount.toString,
-        controller.hexfield.matrix.Ocount.toString,
-        if (controller.gamestatus.equals(GameStatus.TURNPLAYER1) || controller.gamestatus.equals(GameStatus.IDLE))
-          0
-        else
-          1
-      )
-    )
+    Ok(views.html.game())
   }
 
   def overviewPlain(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -100,5 +78,9 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
 
   def notFound(page: String): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     NotFound(views.html.notFound(page))
+  }
+
+  def getField: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(controller.exportField)
   }
 }

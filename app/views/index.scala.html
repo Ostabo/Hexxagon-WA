@@ -1,11 +1,11 @@
-@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Int)
+@()
 
 @main("Hexxagon") {
     <head>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
     </head>
 
-    @game(matrix, status, counter1, counter2, turn)
+    @game()
 
         <!-- Modal Reset -->
     <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
@@ -20,7 +20,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="doAction('reset')">Continue</button>
+                    <button type="button" class="btn btn-primary" onclick="doAction('reset')" data-bs-dismiss="modal">
+                        Continue</button>
                 </div>
             </div>
         </div>
@@ -39,7 +40,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="doAction('load')">Continue</button>
+                    <button type="button" class="btn btn-primary" onclick="doAction('load')" data-bs-dismiss="modal">
+                        Continue</button>
                 </div>
             </div>
         </div>
