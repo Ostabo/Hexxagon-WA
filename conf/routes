@@ -4,31 +4,35 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET         /                          controllers.HomeController.index()
+GET         /                          controllers.Controller.index()
 
 # Request the current status of the game
-GET         /status                    controllers.HomeController.status()
+GET         /status                    controllers.Controller.status()
 
-# Game overview
-GET         /overview                  controllers.HomeController.overview()
 # Game overview in simpler html/text style
-GET         /overview-plain            controllers.HomeController.overviewPlain()
+GET         /overview-plain            controllers.Controller.overviewPlain()
 
 # About page
-GET         /about                     controllers.HomeController.about()
+GET         /about                     controllers.Controller.about()
 
 # Place a stone on the field at the given coordinates - Game Commands
 +nocsrf
-POST        /place/:x/:y/:stone        controllers.HomeController.place(x: Int, y: Int, stone: Char)
-POST        /fill/:stone               controllers.HomeController.fillAll(stone: Char)
-POST        /reset                     controllers.HomeController.reset()
-POST        /undo                      controllers.HomeController.undo()
-POST        /redo                      controllers.HomeController.redo()
-POST        /save                      controllers.HomeController.save()
-POST        /load                      controllers.HomeController.load()
+POST        /place/:x/:y/:stone        controllers.Controller.place(x: Int, y: Int, stone: Char)
++nocsrf
+POST        /fill/:stone               controllers.Controller.fillAll(stone: Char)
++nocsrf
+POST        /reset                     controllers.Controller.reset()
++nocsrf
+POST        /undo                      controllers.Controller.undo()
++nocsrf
+POST        /redo                      controllers.Controller.redo()
++nocsrf
+POST        /save                      controllers.Controller.save()
++nocsrf
+POST        /load                      controllers.Controller.load()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
 
 # 404 - page not found error
-GET         /*page                     controllers.HomeController.notFound(page: String)
+GET         /*page                     controllers.Controller.notFound(page: String)

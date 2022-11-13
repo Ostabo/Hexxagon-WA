@@ -1,31 +1,58 @@
-@(matrix: Vector[Vector[Char]], status: String, counter1: String, counter2: String, turn: Int)
+@(matrix: Vector[Vector[Char]], turn: String, c1: String, c2: String)
 
 <head>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
 </head>
-
-@main("Game-Overview") {
-    <main class="wrapper">
-        @navBack()
-        <div class="header">
-            <h2 class="counter c1">🔷: @counter1</h2>
-            <h2 class="status">@status</h2>
-            <h2 class="counter c2">🔴: @counter2</h2>
-        </div>
-        @for(rowIndex <- matrix.indices by +1) {
-            <div class="row">
-            @for(cellIndex <- matrix(rowIndex).indices.reverse by -1) {
-                <div class="hex" onclick="clickTile(this, @turn)" id="@cellIndex,@rowIndex">
-                @if(matrix(rowIndex)(cellIndex).equals('X')) {
-                    🔷
-                } else {
-                    @if(matrix(rowIndex)(cellIndex).equals('O')) {
-                        🔴
+<body>
+    <main class="container">
+        <h1 class="p-3">Welcome to Hexxagon!</h1>
+        <div class="gamecontainer">
+            <div class="header">
+                <h2>
+                    🔷:
+                    <span id="c1">@c1</span>
+                </h2>
+                <h2 class="status" id="status">
+                    Player
+                    <span id="turn">@turn</span>
+                    's turn
+                </h2>
+                <h2>
+                    🔴:
+                    <span id="c2">@c2</span>
+                </h2>
+            </div>
+            @for(rowIndex <- matrix.indices by +1) {
+                <div class="rowH">
+                @for(cellIndex <- matrix(rowIndex).indices.reverse by -1) {
+                    <div class="hex" onclick="clickTile(this, document.getElementById('turn').innerText)"
+                    id="@cellIndex,@rowIndex">
+                    @if(matrix(rowIndex)(cellIndex).equals('X')) {
+                        🔷
+                    } else {
+                        @if(matrix(rowIndex)(cellIndex).equals('O')) {
+                            🔴
+                        }
                     }
+                    </div>
                 }
                 </div>
             }
+        </div>
+
+        <div class="dropup actionbutton text-capitalize p-4">
+            <button class="btn btn-light dropdown-toggle text-capitalize fs-4" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-dpad-fill p-1"></i>
+                actions
+            </button>
+            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" id="undo" onclick="doAction('undo')">undo</a>
+                <a class="dropdown-item" id="redo" onclick="doAction('redo')">redo</a>
+                <a class="dropdown-item" id="save" data-bs-toggle="modal" data-bs-target="#saveModal">save</a>
+                <a class="dropdown-item" id="load" data-bs-toggle="modal" data-bs-target="#loadModal">load</a>
+                <a class="dropdown-item" id="reset" data-bs-toggle="modal" data-bs-target="#resetModal">reset</a>
             </div>
-        }
+        </div>
     </main>
-}
+</body>

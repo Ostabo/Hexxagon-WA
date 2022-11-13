@@ -1,42 +1,23 @@
-.about {
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 95%;
+@bg-color1: #1b65bb;
+@bg-color2: #d02525;
+
+.about-heading {
+  color: white;
+  text-align: center;
+  font-size: 1.45vw;
+}
+
+.img-card {
   width: 35%;
+}
 
-  .about-heading {
-    font-size: 1em;
-    padding-top: 1em;
-  }
+.gradient-custom {
+  /* fallback for old browsers */
+  background: @bg-color1;
 
-  .table-heading {
-    font-size: 2.25em;
-    text-align: center;
-    padding: .25em;
-  }
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, @bg-color1, @bg-color2);
 
-  table {
-    min-width: 1000px;
-    border-spacing: 2em 0;
-
-    .table-content {
-      td {
-        width: 50%;
-        text-align: left;
-        padding: 1em 3em;
-        vertical-align: top;
-        border-radius: 1em;
-        border: 1px solid white;
-      }
-    }
-
-
-    .img-container {
-      text-align: center;
-    }
-  }
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, @bg-color1, @bg-color2)
 }
