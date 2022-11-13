@@ -31,3 +31,9 @@ function removeCard() {
     const card = document.getElementById('game-over');
     card.style.display = 'none';
 }
+
+function removeCardAndReset() {
+    const card = document.getElementById('game-over');
+    card.style.display = 'none';
+    doAction('reset');
+}

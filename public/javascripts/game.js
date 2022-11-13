@@ -36,6 +36,24 @@ function updateGame(text) {
     // update the page
     updateStatus(c1, c2, t, xml)
     updateField(tiles, xml);
+
+    // check if the game is over
+    if (parseInt(c1[0].innerHTML) + parseInt(c2[0].innerHTML) === 54) {
+        console.log('game over');
+        const card = document.getElementById('game-over');
+        const content = document.getElementById('game-over-content');
+        const counter1 = document.getElementsByClassName('counter c1')[0].innerText;
+        const counter2 = document.getElementsByClassName('counter c2')[0].innerText;
+
+        if (counter1 > counter2)
+            content.innerHTML = 'Player 1 🔷 wins!';
+        else if (counter2 > counter1)
+            content.innerHTML = 'Player 2 🔶 wins!';
+        else
+            content.innerHTML = 'It\'s a draw! ⚪';
+
+        card.style.display = 'block';
+    }
 }
 
 function updateStatus(counter1, counter2, statusturn, xml) {

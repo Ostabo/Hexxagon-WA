@@ -62,4 +62,30 @@
             </div>
         </div>
     </div>
+
+        <!-- Modal GAME OVER-->
+    <div id="game-over" class="position-absolute start-50 top-50 card border-1 border-light translate-middle">
+        <div class="card-content">
+            <div class="card-header border-bottom">
+                <h5 class="card-title">
+                    GAME OVER
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="card-title">
+                    <div class="card-content" id="game-over-content"></div>
+                    <br>To start a new game, click on the reset button in the action menu.
+                    Thanks for playing!
+                </div>
+                <div class="card-footer justify-content-center align-content-center">
+                    <button type="button" class="btn btn-outline-light text-light" aria-label="Close"
+                    onclick="removeCardAndReset()">
+                        Reset</button>
+                    <button type="button" class="btn btn-outline-light text-light" aria-label="Close"
+                    onclick="removeCard()">
+                        Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
