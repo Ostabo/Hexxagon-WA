@@ -1,5 +1,5 @@
 function clickTile(elRef, turn) {
-    const availableTurns = ['X', 'O']
+    const availableTurns = ['X', 'O'];
     const [x, y] = elRef.id.toString().split(',');
     const req = `/place/${x}/${y}/${availableTurns[turn - 1]}`;
 
@@ -14,12 +14,12 @@ async function doAction(action) {
             'Content-Type': 'application/json'
         },
         body: "",
-    })
+    });
 
     if (res.ok)
-        updateGame(await (await res).text())
+        updateGame(await (await res).text());
     else
-        triggerToast(await (await res).text())
+        triggerToast(await (await res).text());
 }
 
 function triggerToast(msg) {
@@ -38,12 +38,11 @@ function updateGame(text) {
     const t = $('#turn');
 
     // parse the response
-    let parser = new DOMParser();
-    let xml = parser.parseFromString(text, "text/xml");
+    let json = JSON.parse(text);
 
     // update the page
-    updateStatus(c1, c2, t, xml)
-    updateField(tiles, xml);
+    updateStatus(c1, c2, t, json);
+    updateField(tiles, json);
 
     const counter1 = c1.text();
     const counter2 = c2.text();
@@ -69,11 +68,11 @@ function updateGame(text) {
     }
 }
 
-function updateStatus(counter1, counter2, statusturn, xml) {
+function updateStatus(counter1, counter2, statusturn, json) {
     // get counters and turn from the response
-    let xcount = xml.getElementsByTagName("xcount")[0].childNodes[0].nodeValue;
-    let ocount = xml.getElementsByTagName("ocount")[0].childNodes[0].nodeValue;
-    let turn = xml.getElementsByTagName("turn")[0].childNodes[0].nodeValue;
+    let xcount = json.xcount;
+    let ocount = json.ocount;
+    let turn = json.turn;
 
     // update the page elements
     counter1[0].innerHTML = xcount;
@@ -81,23 +80,22 @@ function updateStatus(counter1, counter2, statusturn, xml) {
     statusturn[0].innerHTML = turn;
 }
 
-function updateField(tiles, xml) {
+function updateField(tiles, json) {
     // get the field from the response
     for (let i = 0; i < tiles.length; i++) {
         const [c, r] = tiles[i].id.toString().split(',');
-        let field = xml.getElementsByTagName('field');
+        let field = json.field.field;
+        let cells = field.cells;
 
-        for (let k = 0; k < field[0].children.length; k++) {
+        for (let k = 0; k < cells.length; k++) {
             // update the page elements
-            if (field[0].children[k].getAttribute('row') === r
-                && field[0].children[k].getAttribute('col') === c) {
-                if (field[0].children[k].innerHTML.includes('X')) {
+            if (cells[k].row === parseInt(r) && cells[k].col === parseInt(c)) {
+                if (cells[k].cell === 'X')
                     tiles[i].innerHTML = '🔷';
-                } else if (field[0].children[k].innerHTML.includes('O')) {
+                else if (cells[k].cell === 'O')
                     tiles[i].innerHTML = '🔴';
-                } else {
+                else
                     tiles[i].innerHTML = '';
-                }
             }
         }
     }
