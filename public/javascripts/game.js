@@ -123,6 +123,7 @@ class Cell {
     }
 }
 
+
 async function clickTile(elRef, turn) {
     const availableTurns = ['X', 'O'];
     const [x, y] = elRef.id.toString().split(',');
@@ -175,6 +176,7 @@ function updateGame(text) {
     const c2 = fieldRes.ocount;
     const status = document.getElementById('status');
 
+    // Game over or new game
     if (c1 + c2 === tiles.length) {
         gameOver(status, c1, c2);
     } else if (status.childNodes[0].nodeValue === 'GAME') {
