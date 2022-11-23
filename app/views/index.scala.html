@@ -1,105 +1,105 @@
-@(matrix: Vector[Vector[Char]], turn: String, c1: String, c2: String)
+@(matrix: Vector[Vector[Char]], status: String, c1: String, c2: String)
 
-@main("Hexxagon") {
-    <head>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
-    </head>
+    @main("Hexxagon") {
+        <head>
+            <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
+        </head>
 
-    @game(matrix, turn, c1, c2)
+        @game(matrix, status, c1, c2)
 
-        <!-- Modal Reset -->
-    <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="resetModalLabel">Are you sure?</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>You will lose your current game progress.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="doAction('reset')" data-bs-dismiss="modal">
-                        Continue</button>
+            <!-- Modal Reset -->
+        <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="resetModalLabel">Are you sure?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>You will lose your current game progress.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="doAction('reset')" data-bs-dismiss="modal">
+                            Continue</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-        <!-- Modal Load -->
-    <div class="modal fade" id="loadModal" tabindex="-1" aria-labelledby="loadModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="loadModalLabel">Are you sure?</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Loading a game will override your current game progress.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="doAction('load')" data-bs-dismiss="modal">
-                        Continue</button>
+            <!-- Modal Load -->
+        <div class="modal fade" id="loadModal" tabindex="-1" aria-labelledby="loadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="loadModalLabel">Are you sure?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Loading a game will override your current game progress.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="doAction('load')" data-bs-dismiss="modal">
+                            Continue</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-        <!-- Modal Save -->
-    <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="loadModalLabel">Success</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="doAction('save')"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Your game has been saved!</p>
+            <!-- Modal Save -->
+        <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="loadModalLabel">Success</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="doAction('save')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your game has been saved!</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-        <!-- Modal GAME OVER-->
-    <div class="modal fade" id="gameOverModal" tabindex="-1" aria-labelledby="gameOverModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-bottom">
-                    <h4 class="modal-title">
-                        GAME OVER
-                    </h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5 class="modal-title" id="game-over-content"></h5>
-                    <br>To start a new game, click on the reset button in the action menu.
-                    Thanks for playing!
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-light text-dark" aria-label="Reset" data-bs-dismiss="modal"
-                    onclick="doAction('reset');">
-                        Reset</button>
-                    <button type="button" class="btn btn-outline-light text-light" aria-label="Close" data-bs-dismiss="modal">
-                        Close</button>
+            <!-- Modal GAME OVER-->
+        <div class="modal fade" id="gameOverModal" tabindex="-1" aria-labelledby="gameOverModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom">
+                        <h4 class="modal-title">
+                            GAME OVER
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="game-over-content"></h5>
+                        <br>To start a new game, click on the reset button in the action menu.
+                        Thanks for playing!
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-light text-dark" aria-label="Reset" data-bs-dismiss="modal"
+                        onclick="doAction('reset');">
+                            Reset</button>
+                        <button type="button" class="btn btn-outline-light text-light" aria-label="Close" data-bs-dismiss="modal">
+                            Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-        <!-- Toast -->
-    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <i class="bi bi-exclamation-octagon mx-lg-2 fs-2"></i>
-                <strong class="mx-auto fs-5">Watch out!</strong>
-                <button class="bi bi-x mx-lg-2 fs-2" id="toast-button" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body" id="toast-msg">
+            <!-- Toast -->
+        <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <i class="bi bi-exclamation-octagon mx-lg-2 fs-2"></i>
+                    <strong class="mx-auto fs-5">Watch out!</strong>
+                    <button class="bi bi-x mx-lg-2 fs-2" id="toast-button" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="toast-msg">
+                </div>
             </div>
         </div>
-    </div>
 
-}
+    }

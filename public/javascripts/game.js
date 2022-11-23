@@ -123,11 +123,18 @@ class Cell {
     }
 }
 
+const statusOptions = {
+    0: 'GAME OVER',
+    1: 'Player 1\'s turn',
+    2: 'Player 2\'s turn',
+}
 
-async function clickTile(elRef, turn) {
+
+async function clickTile(elRef) {
     const availableTurns = ['X', 'O'];
     const [x, y] = elRef.id.toString().split(',');
-    const req = `/place/${x}/${y}/${availableTurns[turn - 1]}`;
+    const turn = $('#status').text().match('[12]');
+    const req = `/place/${x}/${y}/${availableTurns[turn ? turn - 1 : 0]}`;
 
     await doAction(req);
 }
@@ -161,27 +168,24 @@ function updateGame(text) {
     const tiles = document.getElementsByClassName("hex");
     const counter1 = $('#c1');
     const counter2 = $('#c2');
-    const t = $('#turn');
+    const status = $('#status');
 
     // parse the response
     const json = JSON.parse(text);
     const fieldRes = FieldResponse.from(json);
 
     // update the page
-    updateStatus(counter1, counter2, t, fieldRes);
+    updateCounter(counter1, counter2, fieldRes);
+    setStatus(status, fieldRes.turn);
     updateField(tiles, fieldRes);
-
 
     const c1 = fieldRes.xcount;
     const c2 = fieldRes.ocount;
-    const status = document.getElementById('status');
 
     // Game over or new game
     if (c1 + c2 === tiles.length) {
         gameOver(status, c1, c2);
-    } else if (status.childNodes[0].nodeValue === 'GAME') {
-        // reset in case of a new game
-        defaultStatus(status);
+        setStatus(status, 0);
     }
 
 }
@@ -197,22 +201,16 @@ function gameOver(status, counter1, counter2) {
         content.text('It\'s a draw! ⚪');
 
     $('#gameOverModal').modal('show');
-
-    status.childNodes[0].nodeValue = 'GAME';
-    status.childNodes[1].childNodes[0].nodeValue = ' ';
-    status.childNodes[2].nodeValue = 'OVER';
 }
 
-function defaultStatus(status) {
-    status.childNodes[0].nodeValue = 'Player ';
-    status.childNodes[2].nodeValue = ' \'s turn';
+function setStatus(status, turn) {
+    status.text(statusOptions[turn]);
 }
 
-function updateStatus(counter1, counter2, statusturn, json) {
+function updateCounter(counter1, counter2, json) {
     // update the page elements
     counter1[0].innerHTML = json.xcount;
     counter2[0].innerHTML = json.ocount;
-    statusturn[0].innerHTML = json.turn;
 }
 
 function updateField(tiles, json) {

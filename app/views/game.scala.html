@@ -1,4 +1,4 @@
-@(matrix: Vector[Vector[Char]], turn: String, c1: String, c2: String)
+@(matrix: Vector[Vector[Char]], status: String, c1: String, c2: String)
 
 <head>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
@@ -13,9 +13,7 @@
                     <span id="c1">@c1</span>
                 </h2>
                 <h2 class="status" id="status">
-                    Player
-                    <span id="turn">@turn</span>
-                    's turn
+                @status
                 </h2>
                 <h2>
                     🔴:
@@ -25,7 +23,7 @@
             @for(rowIndex <- matrix.indices by +1) {
                 <div class="rowH">
                 @for(cellIndex <- matrix(rowIndex).indices.reverse by -1) {
-                    <div class="hex" onclick="clickTile(this, document.getElementById('turn').innerText)"
+                    <div class="hex" onclick="clickTile(this)"
                     id="@cellIndex,@rowIndex">
                     @if(matrix(rowIndex)(cellIndex).equals('X')) {
                         🔷

@@ -26,9 +26,10 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
     Ok(views.html.index(
       controller.hexfield.matrix.matrix,
       controller.gamestatus match {
-        case GameStatus.TURNPLAYER1 | GameStatus.IDLE => "1"
-        case GameStatus.TURNPLAYER2 => "2"
-        case _ => " "
+        case GameStatus.TURNPLAYER1 => "Player 1's turn"
+        case GameStatus.TURNPLAYER2 => "Player 2's turn"
+        case GameStatus.GAMEOVER => "GAME OVER"
+        case _ => "Player 1's turn"
       },
       controller.hexfield.matrix.Xcount.toString,
       controller.hexfield.matrix.Ocount.toString
@@ -48,7 +49,9 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
   }
 
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    if (controller.gamestatus.equals(GameStatus.TURNPLAYER2) && stone.equals('X')
+    if (controller.gamestatus.equals(GameStatus.GAMEOVER)) {
+      NotAcceptable("Game is over!\n Reset the game to play again.")
+    } else if (controller.gamestatus.equals(GameStatus.TURNPLAYER2) && stone.equals('X')
       || controller.gamestatus.equals(GameStatus.TURNPLAYER1) && stone.equals('O')) {
       NotAcceptable("Wrong Player!")
     } else if (!controller.hexfield.matrix.cell(x, y).equals(' ')) {
