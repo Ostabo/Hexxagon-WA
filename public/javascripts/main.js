@@ -1,6 +1,6 @@
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-function init() {
+function themeInit() {
     const theme = localStorage.getItem("theme");
     if ((theme === "dark") || (theme === null && prefersDarkScheme.matches)) {
         document.documentElement.classList.add('dark-theme');

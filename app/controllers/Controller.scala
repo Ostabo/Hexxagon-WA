@@ -1,7 +1,10 @@
 package controllers
 
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.stream.Materializer
 import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
+import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
 import javax.inject._
@@ -11,9 +14,10 @@ import javax.inject._
  * application's home page.
  */
 @Singleton
-class Controller @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class Controller @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends BaseController {
 
   val controller: ControllerInterface[Char] = starter.runController
+  var clienList: List[WebSocket] = List()
 
   /**
    * Create an Action to render an HTML page.
@@ -95,4 +99,31 @@ class Controller @Inject()(val controllerComponents: ControllerComponents) exten
   def notFound(page: String): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     NotFound(views.html.notFound(page))
   }
+
+  def socket: WebSocket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out =>
+      println("Connect received")
+      HexxagonWebSocketActorFactory.create(out)
+    }
+  }
+
+  class HexxagonWebSocketActor(out: ActorRef) extends Actor {
+
+    def receive: Receive = {
+      case msg: String =>
+        println("Sent Json to Client" + msg)
+        out ! controller.exportField
+    }
+
+  }
+
+  object HexxagonWebSocketActorFactory {
+
+    def create(out: ActorRef): Props = {
+      Props(new HexxagonWebSocketActor(out))
+    }
+
+  }
 }
+
+

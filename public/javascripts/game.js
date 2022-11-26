@@ -129,6 +129,22 @@ const statusOptions = {
     2: 'Player 2\'s turn',
 }
 
+window.onload = () => {
+    webSocketInit();
+}
+
+let socket;
+
+function webSocketInit() {
+    socket = new WebSocket('ws://' + location.host + '/ws');
+    socket.onopen = () => console.log('WebSocket connection established.');
+    socket.onclose = () => console.log('WebSocket connection closed.');
+    socket.onmessage = function (event) {
+        console.log(JSON.parse(event.data));
+        updateGame(event.data);
+    };
+}
+
 
 async function clickTile(elRef) {
     const availableTurns = ['X', 'O'];
@@ -150,7 +166,7 @@ async function doAction(action) {
     });
 
     if (res.ok)
-        updateGame(await res.text());
+        socket.send(`Action done: ${action} -> Response: ${await res.text()}`);
     else
         triggerToast(await res.text());
 }
