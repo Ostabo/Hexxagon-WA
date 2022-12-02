@@ -6,7 +6,6 @@ import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
-
 import javax.inject._
 
 /**
@@ -17,7 +16,7 @@ import javax.inject._
 class Controller @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends BaseController {
 
   val controller: ControllerInterface[Char] = starter.runController
-  var clienList: List[WebSocket] = List()
+  private var clientList: List[ActorRef] = List()
 
   /**
    * Create an Action to render an HTML page.
@@ -100,7 +99,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     NotFound(views.html.notFound(page))
   }
 
-  def socket: WebSocket = WebSocket.accept[String, String] { request =>
+  def socket: WebSocket = WebSocket.accept[String, String] { _ =>
     ActorFlow.actorRef { out =>
       println("Connect received")
       HexxagonWebSocketActorFactory.create(out)
@@ -108,11 +107,16 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   }
 
   class HexxagonWebSocketActor(out: ActorRef) extends Actor {
+    clientList = out :: clientList
 
     def receive: Receive = {
       case msg: String =>
-        println("Sent Json to Client" + msg)
-        out ! controller.exportField
+        println("Received message\n" + msg)
+        clientList.foreach(_ ! controller.exportField)
+    }
+
+    override def postStop(): Unit = {
+      println("Client disconnected")
     }
 
   }
