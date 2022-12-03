@@ -16,8 +16,13 @@ function initWebSocket() {
     socket.onopen = () => console.log('WebSocket connection established.');
 
     socket.onmessage = function (event) {
-        console.log(JSON.parse(event.data));
-        updateGame(event.data);
+        try {
+            const json = JSON.parse(event.data);
+            if (json)
+                updateGame(FieldResponse.from(json));
+        } catch (e) {
+            console.log('[ping] ' + event.data);
+        }
     };
 
     socket.onclose = function (event) {
@@ -31,6 +36,8 @@ function initWebSocket() {
     socket.onerror = function (error) {
         console.log(`[error] ${error.message}`);
     };
+
+    setInterval(() => socket.send(''), 20000); // ping every 20 seconds
 }
 
 async function clickTile(elRef) {
@@ -66,16 +73,12 @@ function triggerToast(msg) {
     toast.show();
 }
 
-function updateGame(text) {
+function updateGame(fieldRes) {
     // get all elements from the page
     const tiles = document.getElementsByClassName("hex");
     const counter1 = $('#c1');
     const counter2 = $('#c2');
     const status = $('#status');
-
-    // parse the response
-    const json = JSON.parse(text);
-    const fieldRes = FieldResponse.from(json);
 
     // update the page
     updateCounter(counter1, counter2, fieldRes);
