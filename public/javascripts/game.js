@@ -17,9 +17,8 @@ function initWebSocket() {
 
     socket.onmessage = function (event) {
         try {
-            const json = JSON.parse(event.data);
-            if (json)
-                updateGame(FieldResponse.from(json));
+            const json = JSON.parse(event.data); // throws error if it's just a keep alive ping
+            updateGame(FieldResponse.from(json));
         } catch (e) {
             console.log('[ping] ' + event.data);
         }
@@ -37,7 +36,7 @@ function initWebSocket() {
         console.log(`[error] ${error.message}`);
     };
 
-    setInterval(() => socket.send(''), 20000); // ping every 20 seconds
+    setInterval(() => socket.send('ping'), 20000); // ping every 20 seconds
 }
 
 async function clickTile(elRef) {

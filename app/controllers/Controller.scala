@@ -4,7 +4,6 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.Materializer
 import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
-import play.api.libs.json.JsValue
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
@@ -111,11 +110,9 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   class HexxagonWebSocketActor(out: ActorRef) extends Actor {
     clientList = out :: clientList
 
-    var isPongReceived = false
-
     def receive: Receive = {
-      case _: JsValue => clientList.foreach(_ ! controller.exportField)
-      case _ => out ! "Keep alive"
+      case "ping" => out ! "Keep alive"
+      case _ => clientList.foreach(_ ! controller.exportField)
     }
 
     override def postStop(): Unit = {
