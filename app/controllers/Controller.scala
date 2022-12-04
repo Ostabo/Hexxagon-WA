@@ -4,6 +4,7 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.Materializer
 import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
+import play.api.libs.json.Json
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
@@ -17,6 +18,7 @@ import javax.inject._
 class Controller @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends BaseController {
 
   val controller: ControllerInterface[Char] = starter.runController
+  var chat: String = ""
   private var clientList: List[ActorRef] = List()
 
   /**
@@ -98,6 +100,16 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
   def notFound(page: String): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     NotFound(views.html.notFound(page))
+  }
+
+  def chatGet(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(chat)
+  }
+
+  def chatPost(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    chat = request.body.asText.get
+    println(chat)
+    Ok(chat)
   }
 
   def socket: WebSocket = WebSocket.accept[String, String] { _ =>

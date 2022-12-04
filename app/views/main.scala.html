@@ -29,7 +29,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.ico")">
 
         @* JQuery *@
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
 
     </head>
     <body class="main-body h-100" onload="themeInit()">
@@ -67,7 +67,15 @@
                         <i class="bi bi-person"></i>
                         Login
                     </button>
-                    <div class="dropdown mx-3 my-1">
+                    <div class="dropdown my-1 mx-3">
+                        <button class="btn btn-transparent dropdown-toggle text-light" type="button" id="dropdownChat" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-chat"></i>
+                        </button>
+                        <div class="dropdown-menu p-0" aria-labelledby="dropdownChat">
+                        @chat()
+                        </div>
+                    </div>
+                    <div class="dropdown mr-3 my-1">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bi bi-gear"></i>
                         </button>
