@@ -31,12 +31,6 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index(
       controller.hexfield.matrix.matrix,
-      controller.gamestatus match {
-        case GameStatus.TURNPLAYER1 => "Player 1's turn"
-        case GameStatus.TURNPLAYER2 => "Player 2's turn"
-        case GameStatus.GAMEOVER => "GAME OVER"
-        case _ => "Player 1's turn"
-      },
       controller.hexfield.matrix.Xcount.toString,
       controller.hexfield.matrix.Ocount.toString
     ))
@@ -125,7 +119,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
     def receive: Receive = {
       case "ping" => out ! "Keep alive"
-      case "Requesting player number" => out ! "Player number: " + (clientList.indexOf(out)+1)
+      case "Requesting player number" => out ! "Player number: " + (clientList.toList.indexOf(out) + 1)
       case _ => clientList.foreach(_ ! controller.exportField)
     }
 

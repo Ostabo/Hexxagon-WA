@@ -1,9 +1,3 @@
-const statusOptions = {
-    0: 'GAME OVER',
-    1: 'Player 1\'s turn',
-    2: 'Player 2\'s turn',
-};
-
 $(document).ready(function () {
     initWebSocket();
 });
@@ -25,6 +19,9 @@ function initWebSocket() {
         if (msg.startsWith('Player number: ')) {
             playerNumber = msg.split(' ')[2];
             console.log(`Player number: ${playerNumber}`);
+            if (playerNumber !== '1') {
+                setStatus($('#status'), 2);
+            }
         } else if (msg.startsWith('Keep alive')) {
             console.log('[ping] ' + msg);
         } else {
@@ -48,9 +45,9 @@ function initWebSocket() {
     setInterval(() => socket.send('ping'), 20000); // ping every 20 seconds
 }
 
-async function clickTile(elRef) {
+async function clickTile(element) {
     const availableTurns = ['X', 'O'];
-    const [x, y] = elRef.id.toString().split(',');
+    const [x, y] = element.id.toString().split(',');
     const req = `/place/${x}/${y}/${availableTurns[playerNumber-1]}`;
     // const turn = $('#status').text().match('[12]');
     // const req = `/place/${x}/${y}/${availableTurns[turn ? turn - 1 : 0]}`;
@@ -119,7 +116,18 @@ function gameOver(status, counter1, counter2) {
 }
 
 function setStatus(status, turn) {
-    status.text(statusOptions[turn]);
+    switch (turn) {
+        case 0:
+            status.text("GAME OVER");
+            break;
+        case playerNumber:
+            status.text("Your turn");
+            break;
+        case playerNumber+1:
+        case playerNumber-1:
+            status.text("Waiting for other player...");
+            break;
+    }
 }
 
 function updateCounter(counter1, counter2, json) {

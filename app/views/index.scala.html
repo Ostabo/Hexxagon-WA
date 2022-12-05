@@ -1,11 +1,11 @@
-@(matrix: Vector[Vector[Char]], status: String, c1: String, c2: String)
+@(matrix: Vector[Vector[Char]], c1: String, c2: String)
 
     @main("Hexxagon") {
         <head>
             <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/game.css")">
         </head>
 
-        @game(matrix, status, c1, c2)
+        @game(matrix, c1, c2)
 
             <!-- Modal Reset -->
         <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
