@@ -4,7 +4,6 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.Materializer
 import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
-import play.api.libs.json.Json
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
@@ -107,7 +106,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   }
 
   def chatPost(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    chat = request.body.asText.get
+    chat = request.body.asText.getOrElse("")
     println(chat)
     Ok(chat)
   }

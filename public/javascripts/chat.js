@@ -2,6 +2,10 @@ let noerror = false;
 
 $(document).ready(function () {
     initChat();
+    $('#chat-input').on('keyup', (e) => {
+        if (e.key === 'Enter')
+            sendChatMsg();
+    });
 });
 
 let previoustext = '';
@@ -33,7 +37,9 @@ function initChat() {
 }
 
 async function sendChatMsg() {
-    let msg = $('#chat-input').val();
+    const input = $('#chat-input');
+    let msg = input.val();
+    input.val('');
     const res = await fetch('/chat', {
         method: 'POST',
         headers: {
@@ -47,6 +53,7 @@ async function sendChatMsg() {
         updateChat(response);
         previoustext = response;
     }
+    input.focus();
 }
 
 function updateChat(msg) {
