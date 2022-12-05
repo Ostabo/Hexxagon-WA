@@ -8,6 +8,7 @@ import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
 import javax.inject._
+import scala.collection.mutable.ListBuffer
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -18,7 +19,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
   val controller: ControllerInterface[Char] = starter.runController
   var chat: String = ""
-  private var clientList: List[ActorRef] = List()
+  private val clientList: ListBuffer[ActorRef] = ListBuffer()
 
   /**
    * Create an Action to render an HTML page.
@@ -30,12 +31,6 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index(
       controller.hexfield.matrix.matrix,
-      controller.gamestatus match {
-        case GameStatus.TURNPLAYER1 => "Player 1's turn"
-        case GameStatus.TURNPLAYER2 => "Player 2's turn"
-        case GameStatus.GAMEOVER => "GAME OVER"
-        case _ => "Player 1's turn"
-      },
       controller.hexfield.matrix.Xcount.toString,
       controller.hexfield.matrix.Ocount.toString
     ))
@@ -112,22 +107,26 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   }
 
   def socket: WebSocket = WebSocket.accept[String, String] { _ =>
+    println("Client connected")
     ActorFlow.actorRef { out =>
-      println("Connect received")
       HexxagonWebSocketActorFactory.create(out)
     }
   }
 
   class HexxagonWebSocketActor(out: ActorRef) extends Actor {
-    clientList = out :: clientList
+    clientList += out
+    println("Clients: " + clientList.size)
 
     def receive: Receive = {
       case "ping" => out ! "Keep alive"
+      case "Requesting player number" => out ! "Player number: " + (clientList.toList.indexOf(out) + 1)
       case _ => clientList.foreach(_ ! controller.exportField)
     }
 
     override def postStop(): Unit = {
       println("Client disconnected")
+      clientList -= out
+      println("Clients: " + clientList.size)
     }
 
   }
