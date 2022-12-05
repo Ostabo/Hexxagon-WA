@@ -3,7 +3,18 @@ $(document).ready(function () {
 });
 
 let socket;
-let playerNumber;
+let playerNumber ;
+// get all elements from the page
+const tiles = document.getElementsByClassName("hex");
+const counter1 = $('#c1');
+const counter2 = $('#c2');
+const status = $('#status');
+const statusText = [
+    "GAME OVER",
+    "Your turn",
+    "Waiting for other player...",
+    "You are not allowed to play :("
+];
 
 function initWebSocket() {
     socket = new WebSocket('ws://' + location.host + '/ws');
@@ -19,9 +30,7 @@ function initWebSocket() {
         if (msg.startsWith('Player number: ')) {
             playerNumber = msg.split(' ')[2];
             console.log(`Player number: ${playerNumber}`);
-            if (playerNumber !== '1') {
-                setStatus($('#status'), 2);
-            }
+            initStatus();
         } else if (msg.startsWith('Keep alive')) {
             console.log('[ping] ' + msg);
         } else {
@@ -46,13 +55,17 @@ function initWebSocket() {
 }
 
 async function clickTile(element) {
-    const availableTurns = ['X', 'O'];
-    const [x, y] = element.id.toString().split(',');
-    const req = `/place/${x}/${y}/${availableTurns[playerNumber-1]}`;
-    // const turn = $('#status').text().match('[12]');
-    // const req = `/place/${x}/${y}/${availableTurns[turn ? turn - 1 : 0]}`;
-
-    await doAction(req);
+    switch (playerNumber) {
+        case '1':
+        case '2':
+            const availableTurns = ['X', 'O'];
+            const [x, y] = element.id.toString().split(',');
+            const req = `/place/${x}/${y}/${availableTurns[playerNumber-1]}`;
+            await doAction(req);
+            break;
+        default:
+            triggerToast('You are not allowed to play!');
+    }
 }
 
 async function doAction(action) {
@@ -71,24 +84,13 @@ async function doAction(action) {
         triggerToast(await res.text());
 }
 
-function triggerToast(msg) {
-    $('#toast-msg').text(msg);
-
-    const toast = new bootstrap.Toast($('#liveToast'));
-
-    toast.show();
-}
-
 function updateGame(fieldRes) {
-    // get all elements from the page
-    const tiles = document.getElementsByClassName("hex");
-    const counter1 = $('#c1');
-    const counter2 = $('#c2');
-    const status = $('#status');
-
     // update the page
     updateCounter(counter1, counter2, fieldRes);
-    setStatus(status, fieldRes.turn);
+    // only update status for playing users
+    if (playerNumber === '1' || playerNumber === '2') {
+        updateStatus(status, fieldRes.turn);
+    }
     updateField(tiles, fieldRes);
 
     const c1 = fieldRes.xcount;
@@ -97,7 +99,7 @@ function updateGame(fieldRes) {
     // Game over or new game
     if (c1 + c2 === tiles.length) {
         gameOver(status, c1, c2);
-        setStatus(status, 0);
+        updateStatus(status, 0);
     }
 
 }
@@ -115,17 +117,30 @@ function gameOver(status, counter1, counter2) {
     $('#gameOverModal').modal('show');
 }
 
-function setStatus(status, turn) {
-    switch (turn) {
-        case 0:
-            status.text("GAME OVER");
+function initStatus() {
+    switch (playerNumber) {
+        case '1': // player 1 always starts
+            status.text(statusText[1]);
             break;
-        case playerNumber:
-            status.text("Your turn");
+        case '2': // player 2 has to wait
+            status.text(statusText[2]);
             break;
-        case playerNumber+1:
-        case playerNumber-1:
-            status.text("Waiting for other player...");
+        default: // not allowed to play
+            status.text(statusText[3]);
+            break;
+    }
+}
+
+function updateStatus(status, turn) {
+    switch (turn.toString()) {
+        case '0': // game over
+            status.text(statusText[0]);
+            break;
+        case playerNumber: // your turn
+            status.text(statusText[1]);
+            break;
+        default: // other player's turn
+            status.text(statusText[2]);
             break;
     }
 }
@@ -137,14 +152,17 @@ function updateCounter(counter1, counter2, json) {
 }
 
 function updateField(tiles, json) {
-
     const cells = json.field.cells.map(cell => Cell.from(cell));
 
     // get the field from the response
     for (let i = 0; i < tiles.length; i++) {
-
         const [c, r] = tiles[i].id.toString().split(',');
-
         tiles[i].innerHTML = cells.find(cell => cell.row === parseInt(r) && cell.col === parseInt(c)).content;
     }
+}
+
+function triggerToast(msg) {
+    $('#toast-msg').text(msg);
+    const toast = new bootstrap.Toast($('#liveToast'));
+    toast.show();
 }

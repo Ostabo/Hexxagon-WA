@@ -108,7 +108,6 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
   def socket: WebSocket = WebSocket.accept[String, String] { _ =>
     println("Client connected")
-    println("clients: " + clientList.length)
     ActorFlow.actorRef { out =>
       HexxagonWebSocketActorFactory.create(out)
     }
@@ -116,6 +115,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
   class HexxagonWebSocketActor(out: ActorRef) extends Actor {
     clientList += out
+    println("Clients: " + clientList.size)
 
     def receive: Receive = {
       case "ping" => out ! "Keep alive"
@@ -126,6 +126,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     override def postStop(): Unit = {
       println("Client disconnected")
       clientList -= out
+      println("Clients: " + clientList.size)
     }
 
   }
