@@ -9,18 +9,27 @@ $(document).ready(function () {
 });
 
 let socket;
+let playerNumber;
 
 function initWebSocket() {
     socket = new WebSocket('ws://' + location.host + '/ws');
 
-    socket.onopen = () => console.log('WebSocket connection established.');
+    socket.onopen = function (event) {
+        console.log('WebSocket connection established');
+        socket.send('Requesting player number');
+    }
 
     socket.onmessage = function (event) {
-        try {
-            const json = JSON.parse(event.data); // throws error if it's just a keep alive ping
+        let msg = event.data;
+
+        if (msg.startsWith('Player number: ')) {
+            playerNumber = msg.split(' ')[2];
+            console.log(`Player number: ${playerNumber}`);
+        } else if (msg.startsWith('Keep alive')) {
+            console.log('[ping] ' + msg);
+        } else {
+            const json = JSON.parse(msg);
             updateGame(FieldResponse.from(json));
-        } catch (e) {
-            console.log('[ping] ' + event.data);
         }
     };
 
@@ -42,8 +51,9 @@ function initWebSocket() {
 async function clickTile(elRef) {
     const availableTurns = ['X', 'O'];
     const [x, y] = elRef.id.toString().split(',');
-    const turn = $('#status').text().match('[12]');
-    const req = `/place/${x}/${y}/${availableTurns[turn ? turn - 1 : 0]}`;
+    const req = `/place/${x}/${y}/${availableTurns[playerNumber]}`;
+    // const turn = $('#status').text().match('[12]');
+    // const req = `/place/${x}/${y}/${availableTurns[turn ? turn - 1 : 0]}`;
 
     await doAction(req);
 }

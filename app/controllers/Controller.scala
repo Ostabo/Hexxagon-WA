@@ -4,7 +4,6 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.Materializer
 import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
-import play.api.libs.json.Json
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
@@ -19,7 +18,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
   val controller: ControllerInterface[Char] = starter.runController
   var chat: String = ""
-  private var clientList: List[ActorRef] = List()
+  private var clientList: List[(ActorRef, String)] = List()
 
   /**
    * Create an Action to render an HTML page.
@@ -112,30 +111,33 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     Ok(chat)
   }
 
-  def socket: WebSocket = WebSocket.accept[String, String] { _ =>
+  def socket: WebSocket = WebSocket.accept[String, String] { requestHeader =>
+    println("Client connected")
+    val id = requestHeader.headers.get("sec-websocket-key").get
     ActorFlow.actorRef { out =>
-      println("Connect received")
-      HexxagonWebSocketActorFactory.create(out)
+      HexxagonWebSocketActorFactory.create((out, id))
     }
   }
 
-  class HexxagonWebSocketActor(out: ActorRef) extends Actor {
+  class HexxagonWebSocketActor(out: (ActorRef, String)) extends Actor {
     clientList = out :: clientList
 
     def receive: Receive = {
-      case "ping" => out ! "Keep alive"
-      case _ => clientList.foreach(_ ! controller.exportField)
+      case "ping" => out._1 ! "Keep alive"
+      case "Requesting player number" => out._1 ! "Player number: " + clientList.indexOf(out).toString
+      case _ => clientList.foreach(_._1 ! controller.exportField)
     }
 
     override def postStop(): Unit = {
       println("Client disconnected")
+      clientList = clientList.filterNot(_ == out)
     }
 
   }
 
   object HexxagonWebSocketActorFactory {
 
-    def create(out: ActorRef): Props = {
+    def create(out: (ActorRef, String)): Props = {
       Props(new HexxagonWebSocketActor(out))
     }
 
