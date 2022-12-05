@@ -17,9 +17,13 @@ import scala.collection.mutable.ListBuffer
 @Singleton
 class Controller @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends BaseController {
 
+  private final val WS_KEEP_ALIVE_EVENT = "ping"
+  private final val WS_KEEP_ALIVE_RESPONSE = "Keep alive"
+  private final val WS_REQUEST_PLAYER_EVENT = "Requesting player number"
+  private final val WS_RESPONSE_PLAYER_EVENT = "Player number: "
   val controller: ControllerInterface[Char] = starter.runController
-  var chat: String = ""
   private val clientList: ListBuffer[ActorRef] = ListBuffer()
+  var chat: String = ""
 
   /**
    * Create an Action to render an HTML page.
@@ -113,11 +117,6 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     }
   }
 
-  private final val WS_KEEP_ALIVE_EVENT = "ping"
-  private final val WS_KEEP_ALIVE_RESPONSE = "Keep alive"
-  private final val WS_REQUEST_PLAYER_EVENT = "Requesting player number"
-  private final val WS_RESPONSE_PLAYER_EVENT = "Player number: "
-
   class HexxagonWebSocketActor(out: ActorRef) extends Actor {
     clientList += out
     println("Clients: " + clientList.size)
@@ -130,7 +129,11 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
     override def postStop(): Unit = {
       println("Client disconnected")
+      val oldIndex = clientList.toList.indexOf(out)
       clientList -= out
+      for (i <- oldIndex + 1 to clientList.size) {
+        clientList(i - 1) ! WS_RESPONSE_PLAYER_EVENT + i
+      }
       println("Clients: " + clientList.size)
     }
 
