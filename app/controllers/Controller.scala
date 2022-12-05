@@ -8,6 +8,7 @@ import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
 import javax.inject._
+import scala.collection.mutable.ListBuffer
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -18,7 +19,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
 
   val controller: ControllerInterface[Char] = starter.runController
   var chat: String = ""
-  private var clientList: List[(ActorRef, String)] = List()
+  private val clientList: ListBuffer[ActorRef] = ListBuffer()
 
   /**
    * Create an Action to render an HTML page.
@@ -111,33 +112,33 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     Ok(chat)
   }
 
-  def socket: WebSocket = WebSocket.accept[String, String] { requestHeader =>
+  def socket: WebSocket = WebSocket.accept[String, String] { _ =>
     println("Client connected")
-    val id = requestHeader.headers.get("sec-websocket-key").get
+    println("clients: " + clientList.length)
     ActorFlow.actorRef { out =>
-      HexxagonWebSocketActorFactory.create((out, id))
+      HexxagonWebSocketActorFactory.create(out)
     }
   }
 
-  class HexxagonWebSocketActor(out: (ActorRef, String)) extends Actor {
-    clientList = out :: clientList
+  class HexxagonWebSocketActor(out: ActorRef) extends Actor {
+    clientList += out
 
     def receive: Receive = {
-      case "ping" => out._1 ! "Keep alive"
-      case "Requesting player number" => out._1 ! "Player number: " + clientList.indexOf(out).toString
-      case _ => clientList.foreach(_._1 ! controller.exportField)
+      case "ping" => out ! "Keep alive"
+      case "Requesting player number" => out ! "Player number: " + (clientList.indexOf(out)+1)
+      case _ => clientList.foreach(_ ! controller.exportField)
     }
 
     override def postStop(): Unit = {
       println("Client disconnected")
-      clientList = clientList.filterNot(_ == out)
+      clientList -= out
     }
 
   }
 
   object HexxagonWebSocketActorFactory {
 
-    def create(out: (ActorRef, String)): Props = {
+    def create(out: ActorRef): Props = {
       Props(new HexxagonWebSocketActor(out))
     }
 

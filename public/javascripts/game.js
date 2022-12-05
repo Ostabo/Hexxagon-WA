@@ -2,7 +2,7 @@ const statusOptions = {
     0: 'GAME OVER',
     1: 'Player 1\'s turn',
     2: 'Player 2\'s turn',
-}
+};
 
 $(document).ready(function () {
     initWebSocket();
@@ -14,10 +14,10 @@ let playerNumber;
 function initWebSocket() {
     socket = new WebSocket('ws://' + location.host + '/ws');
 
-    socket.onopen = function (event) {
+    socket.onopen = function () {
         console.log('WebSocket connection established');
         socket.send('Requesting player number');
-    }
+    };
 
     socket.onmessage = function (event) {
         let msg = event.data;
@@ -51,7 +51,7 @@ function initWebSocket() {
 async function clickTile(elRef) {
     const availableTurns = ['X', 'O'];
     const [x, y] = elRef.id.toString().split(',');
-    const req = `/place/${x}/${y}/${availableTurns[playerNumber]}`;
+    const req = `/place/${x}/${y}/${availableTurns[playerNumber-1]}`;
     // const turn = $('#status').text().match('[12]');
     // const req = `/place/${x}/${y}/${availableTurns[turn ? turn - 1 : 0]}`;
 
