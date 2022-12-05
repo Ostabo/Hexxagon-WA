@@ -4,7 +4,6 @@ $(document).ready(function () {
 
 let socket;
 let playerNumber;
-// get all elements from the page
 const tiles = document.getElementsByClassName("hex");
 const counter1 = $('#c1');
 const counter2 = $('#c2');
@@ -13,7 +12,7 @@ const statusText = [
     "GAME OVER",
     "Your turn",
     "Waiting for other player...",
-    "Your are spectator"
+    "You are spectator"
 ];
 const WS_PLAYER_REQUEST = 'Requesting player number';
 const WS_PLAYER_RESPONSE = 'Player number: ';
@@ -105,7 +104,6 @@ function updateGame(fieldRes) {
         gameOver(status, c1, c2);
         updateStatus(status, 0);
     }
-
 }
 
 function gameOver(status, counter1, counter2) {
