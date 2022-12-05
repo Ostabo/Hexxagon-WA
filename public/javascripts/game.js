@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 let socket;
-let playerNumber ;
+let playerNumber;
 // get all elements from the page
 const tiles = document.getElementsByClassName("hex");
 const counter1 = $('#c1');
@@ -13,25 +13,29 @@ const statusText = [
     "GAME OVER",
     "Your turn",
     "Waiting for other player...",
-    "You are not allowed to play :("
+    "Your are spectator"
 ];
+const WS_PLAYER_REQUEST = 'Requesting player number';
+const WS_PLAYER_RESPONSE = 'Player number: ';
+const WS_KEEP_ALIVE_RESPONSE = 'Keep alive';
+const WS_KEEP_ALIVE_REQUEST = 'ping';
 
 function initWebSocket() {
     socket = new WebSocket('ws://' + location.host + '/ws');
 
     socket.onopen = function () {
         console.log('WebSocket connection established');
-        socket.send('Requesting player number');
+        socket.send(WS_PLAYER_REQUEST);
     };
 
     socket.onmessage = function (event) {
         let msg = event.data;
 
-        if (msg.startsWith('Player number: ')) {
+        if (msg.startsWith(WS_PLAYER_RESPONSE)) {
             playerNumber = msg.split(' ')[2];
-            console.log(`Player number: ${playerNumber}`);
+            console.log(`${WS_PLAYER_RESPONSE} ${playerNumber}`);
             initStatus();
-        } else if (msg.startsWith('Keep alive')) {
+        } else if (msg === WS_KEEP_ALIVE_RESPONSE) {
             console.log('[ping] ' + msg);
         } else {
             const json = JSON.parse(msg);
@@ -51,7 +55,7 @@ function initWebSocket() {
         console.log(`[error] ${error.message}`);
     };
 
-    setInterval(() => socket.send('ping'), 20000); // ping every 20 seconds
+    setInterval(() => socket.send(WS_KEEP_ALIVE_REQUEST), 20000); // ping every 20 seconds
 }
 
 async function clickTile(element) {
@@ -60,11 +64,11 @@ async function clickTile(element) {
         case '2':
             const availableTurns = ['X', 'O'];
             const [x, y] = element.id.toString().split(',');
-            const req = `/place/${x}/${y}/${availableTurns[playerNumber-1]}`;
+            const req = `/place/${x}/${y}/${availableTurns[playerNumber - 1]}`;
             await doAction(req);
             break;
         default:
-            triggerToast('You are not allowed to play!');
+            triggerToast(statusText[3]);
     }
 }
 

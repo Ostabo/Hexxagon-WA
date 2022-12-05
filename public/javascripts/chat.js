@@ -26,7 +26,7 @@ function initChat() {
             if (!self.noerror) {
                 setTimeout(function () {
                     initChat();
-                }, 5000);
+                }, 200);
             } else {
                 initChat();
             }

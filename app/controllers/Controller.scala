@@ -113,13 +113,18 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     }
   }
 
+  private final val WS_KEEP_ALIVE_EVENT = "ping"
+  private final val WS_KEEP_ALIVE_RESPONSE = "Keep alive"
+  private final val WS_REQUEST_PLAYER_EVENT = "Requesting player number"
+  private final val WS_RESPONSE_PLAYER_EVENT = "Player number: "
+
   class HexxagonWebSocketActor(out: ActorRef) extends Actor {
     clientList += out
     println("Clients: " + clientList.size)
 
     def receive: Receive = {
-      case "ping" => out ! "Keep alive"
-      case "Requesting player number" => out ! "Player number: " + (clientList.toList.indexOf(out) + 1)
+      case WS_KEEP_ALIVE_EVENT => out ! WS_KEEP_ALIVE_RESPONSE
+      case WS_REQUEST_PLAYER_EVENT => out ! WS_RESPONSE_PLAYER_EVENT + (clientList.toList.indexOf(out) + 1)
       case _ => clientList.foreach(_ ! controller.exportField)
     }
 
