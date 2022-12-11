@@ -52,6 +52,10 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     Ok(views.html.gamePlain(controller.toString))
   }
 
+  def game(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(controller.exportField)
+  }
+
   def place(x: Int, y: Int, stone: Char): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     if (controller.gamestatus.equals(GameStatus.GAMEOVER)) {
       NotAcceptable("Game is over!\n Reset the game to play again.")

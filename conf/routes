@@ -30,6 +30,8 @@ POST        /redo                      controllers.Controller.redo()
 POST        /save                      controllers.Controller.save()
 +nocsrf
 POST        /load                      controllers.Controller.load()
++nocsrf
+GET         /game                      controllers.Controller.game()
 
 # Chat
 +nocsrf
