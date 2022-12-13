@@ -22,7 +22,7 @@
             </div>
             @for(rowIndex <- matrix.indices by +1) {
                 <div class="rowH">
-                @for(cellIndex <- matrix(rowIndex).indices.reverse by -1) {
+                @for(cellIndex <- matrix(rowIndex).indices by +1) {
                     <div class="hex" onclick="clickTile(this)"
                     id="@cellIndex,@rowIndex">
                     @if(matrix(rowIndex)(cellIndex).equals('X')) {
