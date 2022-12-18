@@ -109,7 +109,7 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   }
 
   def chatPost(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    chat = request.body.asText.getOrElse("")
+    chat = request.body.asText.getOrElse(request.body.asJson.get("message").asOpt[String].get)
     println(chat)
     Ok(chat)
   }
