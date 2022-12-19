@@ -52,6 +52,14 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
     Ok(views.html.gamePlain(controller.toString))
   }
 
+  def gamePlain(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(controller.toString)
+  }
+
+  def statusPlain(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    Ok(controller.gamestatus.message())
+  }
+
   def game(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(controller.exportField)
   }

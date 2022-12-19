@@ -16,27 +16,19 @@ GET         /overview-plain            controllers.Controller.overviewPlain()
 GET         /about                     controllers.Controller.about()
 
 # Place a stone on the field at the given coordinates - Game Commands
-+nocsrf
 POST        /place/:x/:y/:stone        controllers.Controller.place(x: Int, y: Int, stone: Char)
-+nocsrf
 POST        /fill/:stone               controllers.Controller.fillAll(stone: Char)
-+nocsrf
 POST        /reset                     controllers.Controller.reset()
-+nocsrf
 POST        /undo                      controllers.Controller.undo()
-+nocsrf
 POST        /redo                      controllers.Controller.redo()
-+nocsrf
 POST        /save                      controllers.Controller.save()
-+nocsrf
 POST        /load                      controllers.Controller.load()
-+nocsrf
 GET         /game                      controllers.Controller.game()
+GET         /game-plain                controllers.Controller.gamePlain()
+GET         /status-plain              controllers.Controller.statusPlain()
 
 # Chat
-+nocsrf
 POST        /chat                      controllers.Controller.chatPost()
-+nocsrf
 GET         /chat                      controllers.Controller.chatGet()
 
 # Map static resources from the /public folder to the /assets URL path
