@@ -11,3 +11,5 @@ null
 /target/universal/
 /target/web/
 /target/.history3
+/project/target/
+/project/project/target/
