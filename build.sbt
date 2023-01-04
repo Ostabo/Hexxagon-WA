@@ -1,3 +1,11 @@
+import com.typesafe.sbt.packager.docker.DockerChmodType
+import com.typesafe.sbt.packager.docker.DockerPermissionStrategy
+
+dockerChmodType := DockerChmodType.UserGroupWriteExecute
+dockerPermissionStrategy := DockerPermissionStrategy.CopyChown
+
+javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
+
 ThisBuild / scalaVersion := "2.13.10"
 
 ThisBuild / version := "1.0"
