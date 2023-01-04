@@ -4,12 +4,3 @@ null
 /logs
 /RUNNING_PID
 /target/
-/target/global-logging/
-/target/scala-2.13/
-/target/streams/
-/target/task-temp-directory/
-/target/universal/
-/target/web/
-/target/.history3
-/project/target/
-/project/project/target/
