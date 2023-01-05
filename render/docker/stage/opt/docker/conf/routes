@@ -1,0 +1,41 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET         /                          controllers.Controller.index()
+
+# Request the current status of the game
+GET         /status                    controllers.Controller.status()
+
+# Game overview in simpler html/text style
+GET         /overview-plain            controllers.Controller.overviewPlain()
+
+# About page
+GET         /about                     controllers.Controller.about()
+
+# Place a stone on the field at the given coordinates - Game Commands
+POST        /place/:x/:y/:stone        controllers.Controller.place(x: Int, y: Int, stone: Char)
+POST        /fill/:stone               controllers.Controller.fillAll(stone: Char)
+POST        /reset                     controllers.Controller.reset()
+POST        /undo                      controllers.Controller.undo()
+POST        /redo                      controllers.Controller.redo()
+POST        /save                      controllers.Controller.save()
+POST        /load                      controllers.Controller.load()
+GET         /game                      controllers.Controller.game()
+GET         /game-plain                controllers.Controller.gamePlain()
+GET         /status-plain              controllers.Controller.statusPlain()
+
+# Chat
+POST        /chat                      controllers.Controller.chatPost()
+GET         /chat                      controllers.Controller.chatGet()
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
+
+# WebSocket
+GET         /ws                        controllers.Controller.socket
+
+# 404 - page not found error
+GET         /*page                     controllers.Controller.notFound(page: String)
