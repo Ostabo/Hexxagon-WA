@@ -10,6 +10,8 @@ ThisBuild / scalaVersion := "2.13.10"
 
 ThisBuild / version := "1.0"
 
+packageName in Docker := "ostabo/hex"
+
 scalacOptions += "-Ytasty-reader"
 
 lazy val root = (project in file("."))
