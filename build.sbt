@@ -4,18 +4,23 @@ import com.typesafe.sbt.packager.docker.DockerPermissionStrategy
 dockerChmodType := DockerChmodType.UserGroupWriteExecute
 dockerPermissionStrategy := DockerPermissionStrategy.CopyChown
 
-javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
-ThisBuild / scalaVersion := "2.13.10"
+Global / scalaVersion := "2.13.10"
+Global / version := "1.0"
+Docker / packageName := "ostabo/hex"
 
-ThisBuild / version := "1.0"
+// standard tcp ports
+dockerExposedPorts ++= Seq(9000, 9001)
 
-packageName in Docker := "ostabo/hex"
+// for udp ports
+dockerExposedUdpPorts += 4444
+
 
 scalacOptions += "-Ytasty-reader"
 
 lazy val root = (project in file("."))
-  .enablePlugins(PlayScala, SbtWeb)
+  .enablePlugins(PlayScala, SbtWeb, DockerPlugin)
   .settings(
     name := "Hexxagon-WA",
     includeFilter in(Assets, LessKeys.less) := "*.less",
