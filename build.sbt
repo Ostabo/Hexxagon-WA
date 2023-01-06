@@ -6,10 +6,13 @@ dockerPermissionStrategy := DockerPermissionStrategy.CopyChown
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
-Global / scalaVersion := "2.13.10"
-Global / version := "1.0"
+ThisBuild / scalaVersion := "2.13.10"
+ThisBuild / version := "1.0"
+ThisBuild / publishTo := Some("Docker Hub" at "docker.io/ostabo/hex")
 Docker / packageName := "ostabo/hex"
-dockerRepository := Some("docker.io/ostabo/hex")
+dockerRepository := Some("docker.io")
+publishArtifact := false
+
 
 // standard tcp ports
 dockerExposedPorts ++= Seq(9000, 9001)
