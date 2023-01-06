@@ -15,3 +15,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and Publish
         run: sbt docker:publish
+      - name: Trigger Deploy
+        run: curl ${{ secrets.DEPLOY_URL }}
