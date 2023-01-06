@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
 jobs:
-  login:
+  docker-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Login to Docker Hub
@@ -11,11 +11,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  docker-publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
