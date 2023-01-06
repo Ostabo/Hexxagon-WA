@@ -16,4 +16,4 @@ jobs:
       - name: Build and Publish
         run: sbt docker:publish
       - name: Trigger Deploy
-        run: curl ${{ secrets.DEPLOY_URL }}
+        run: curl ${{ secrets.DEPLOY_TRIGGER }}
