@@ -9,6 +9,7 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 Global / scalaVersion := "2.13.10"
 Global / version := "1.0"
 Docker / packageName := "ostabo/hex"
+dockerRepository := Some("docker.io/ostabo/hex")
 
 // standard tcp ports
 dockerExposedPorts ++= Seq(9000, 9001)
