@@ -1,4 +1,5 @@
 [![Render](https://img.shields.io/badge/Render-Server-0fe0b6)](https://hexxagon-web-server.onrender.com)
+[![Docker Publish](https://github.com/ostabo/Hexxagon-WA/actions/workflows/docker.yml/badge.svg)](https://github.com/ostabo/Hexxagon-WA/actions/workflows/docker.yml)
 [![Scala CI](https://github.com/naedmi/Hexxagon/actions/workflows/scala.yml/badge.svg)](https://github.com/naedmi/Hexxagon/actions/workflows/scala.yml)
 [![codecov](https://codecov.io/gh/naedmi/Hexxagon/branch/master/graph/badge.svg?token=1GU15EM8AA)](https://codecov.io/gh/naedmi/Hexxagon)
 [![Coverage Status](https://coveralls.io/repos/github/naedmi/Hexxagon/badge.svg)](https://coveralls.io/github/naedmi/Hexxagon?branch=master)

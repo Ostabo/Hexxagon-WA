@@ -1,4 +1,4 @@
-name: CI
+name: Docker Publish
 on:
   pull_request:
   push:
