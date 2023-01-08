@@ -7,18 +7,15 @@ import controller.controllerComponent.ControllerInterface
 import play.api.libs.streams.ActorFlow
 import play.api.mvc._
 
-import java.time.LocalDateTime
 import javax.inject._
 import scala.collection.mutable.ListBuffer
-import scala.concurrent.ExecutionContext
-import scala.concurrent.duration.DurationInt
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class Controller @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer, executionContext: ExecutionContext) extends BaseController {
+class Controller @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends BaseController {
 
   private final val WS_KEEP_ALIVE_EVENT = "ping"
   private final val WS_KEEP_ALIVE_RESPONSE = "Keep alive"
@@ -27,11 +24,6 @@ class Controller @Inject()(val controllerComponents: ControllerComponents)(impli
   val controller: ControllerInterface[Char] = starter.runController
   private val clientList: ListBuffer[ActorRef] = ListBuffer()
   var chat: String = ""
-
-  // Cron job to keep render container running
-  system.scheduler.scheduleAtFixedRate(initialDelay = 10.minutes, interval = 14.minutes) { () =>
-    println(LocalDateTime.now() + " - Keep alive in Production")
-  }
 
   /**
    * Create an Action to render an HTML page.
