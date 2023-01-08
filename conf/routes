@@ -27,8 +27,6 @@ GET         /game                      controllers.Controller.game()
 GET         /game-plain                controllers.Controller.gamePlain()
 GET         /status-plain              controllers.Controller.statusPlain()
 
-GET         /stay-alive                controllers.Controller.stayAlive()
-
 # Chat
 POST        /chat                      controllers.Controller.chatPost()
 GET         /chat                      controllers.Controller.chatGet()

@@ -30,7 +30,6 @@ lazy val root = (project in file("."))
     includeFilter in(Assets, LessKeys.less) := "*.less",
     libraryDependencies ++= Seq(
       guice,
-      ws,
       "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
     )
   )

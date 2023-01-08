@@ -5,7 +5,6 @@ import akka.stream.Materializer
 import controller.GameStatus
 import controller.controllerComponent.ControllerInterface
 import play.api.libs.streams.ActorFlow
-import play.api.libs.ws.WSClient
 import play.api.mvc._
 
 import java.time.LocalDateTime
@@ -19,7 +18,7 @@ import scala.concurrent.duration.DurationInt
  * application's home page.
  */
 @Singleton
-class Controller @Inject()(val controllerComponents: ControllerComponents, ws: WSClient)(implicit system: ActorSystem, mat: Materializer, executionContext: ExecutionContext) extends BaseController {
+class Controller @Inject()(val controllerComponents: ControllerComponents)(implicit system: ActorSystem, mat: Materializer, executionContext: ExecutionContext) extends BaseController {
 
   private final val WS_KEEP_ALIVE_EVENT = "ping"
   private final val WS_KEEP_ALIVE_RESPONSE = "Keep alive"
@@ -30,10 +29,8 @@ class Controller @Inject()(val controllerComponents: ControllerComponents, ws: W
   var chat: String = ""
 
   // Cron job to keep render container running
-  system.scheduler.scheduleAtFixedRate(initialDelay = 10.minutes, interval = 10.minutes) { () =>
-    ws.url("http://localhost:9000/stay-alive").get().onComplete(res => {
-      println(LocalDateTime.now().toString + " - " + res.get.body)
-    })
+  system.scheduler.scheduleAtFixedRate(initialDelay = 10.minutes, interval = 14.minutes) { () =>
+    println(LocalDateTime.now() + " - Keep alive in Production")
   }
 
   /**
@@ -49,10 +46,6 @@ class Controller @Inject()(val controllerComponents: ControllerComponents, ws: W
       controller.hexfield.matrix.Xcount.toString,
       controller.hexfield.matrix.Ocount.toString
     ))
-  }
-
-  def stayAlive(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    Ok("Alive")
   }
 
   def about(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
