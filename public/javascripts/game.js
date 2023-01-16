@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 let socket;
 let playerNumber;
-const tiles = document.getElementsByClassName("hex");
+const tiles = $('.hex');
 const counter1 = $('#c1');
 const counter2 = $('#c2');
 const status = $('#status');
@@ -149,8 +149,8 @@ function updateStatus(status, turn) {
 
 function updateCounter(counter1, counter2, json) {
     // update the page elements
-    counter1[0].innerHTML = json.xcount;
-    counter2[0].innerHTML = json.ocount;
+    counter1[0].html(json.xcount);
+    counter2[0].html(json.ocount);
 }
 
 function updateField(tiles, json) {
@@ -159,7 +159,7 @@ function updateField(tiles, json) {
     // get the field from the response
     for (let i = 0; i < tiles.length; i++) {
         const [c, r] = tiles[i].id.toString().split(',');
-        tiles[i].innerHTML = cells.find(cell => cell.row === parseInt(r) && cell.col === parseInt(c)).content;
+        tiles[i].html(cells.find(cell => cell.row === parseInt(r) && cell.col === parseInt(c)).content);
     }
 }
 
